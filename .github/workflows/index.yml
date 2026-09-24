@@ -1,0 +1,24 @@
+# Rebuilds the index from the latest Discord specification and Userdoccers
+# pages, and fails when they describe a route the index does not know yet.
+name: index
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Fetch the sources
+        run: |
+          git clone --depth 1 https://github.com/discord/discord-api-spec /tmp/spec
+          git clone --depth 1 https://github.com/discord-userdoccers/discord-userdoccers /tmp/userdoccers
+      - run: go run ./cmd/bucketmap index -spec /tmp/spec/specs/openapi.json -userdoccers /tmp/userdoccers/pages
+      - name: The index is up to date
+        run: git diff --exit-code routes/index.json

@@ -1,0 +1,71 @@
+# Walks a test guild through every route. Run it from this repository, or call
+# it from another one:
+#
+#   jobs:
+#     bucketmap:
+#       uses: FCAgreatgoals/bucketmap/.github/workflows/conformance.yml@main
+#       with:
+#         api: https://discord.com/api/v10
+#       secrets:
+#         token: ${{ secrets.BUCKETMAP_TOKEN }}
+#         guild: ${{ secrets.BUCKETMAP_GUILD }}
+#         users: ${{ secrets.BUCKETMAP_USERS }}
+#
+# The report is uploaded as an artifact. Kicking and banning stay off: test
+# users would have to rejoin between runs.
+name: conformance
+
+on:
+  workflow_dispatch:
+    inputs:
+      api:
+        description: API root, Discord itself or a candidate
+        default: https://discord.com/api/v10
+      duration:
+        description: How long to spread the run over
+        default: 10m
+  workflow_call:
+    inputs:
+      api:
+        type: string
+        default: https://discord.com/api/v10
+      duration:
+        type: string
+        default: 10m
+      version:
+        description: bucketmap version to run
+        type: string
+        default: main
+    secrets:
+      token:
+        required: true
+      guild:
+        required: true
+      users:
+        required: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Run
+        env:
+          TOKEN: ${{ secrets.token || secrets.BUCKETMAP_TOKEN }}
+          GUILD: ${{ secrets.guild || secrets.BUCKETMAP_GUILD }}
+          USERS: ${{ secrets.users || secrets.BUCKETMAP_USERS }}
+          # Inputs go through the environment, never straight into the script.
+          API: ${{ inputs.api }}
+          DURATION: ${{ inputs.duration }}
+          VERSION: ${{ inputs.version || 'main' }}
+        run: |
+          go run "github.com/FCAgreatgoals/bucketmap/cmd/bucketmap@$VERSION" run \
+            -api "$API" -guild "$GUILD" -users "$USERS" \
+            -duration "$DURATION" -report bucketmap.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bucketmap-report
+          path: bucketmap.json
