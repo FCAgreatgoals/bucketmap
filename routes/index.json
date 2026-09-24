@@ -1,0 +1,4424 @@
+[
+  {
+    "method": "GET",
+    "path": "/apex/experiments/metadata",
+    "name": "Get Metadata for Apex Experiments",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Experiments."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/@me",
+    "name": "Get my application",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/@me",
+    "name": "Update my application",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}",
+    "name": "Get application",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}",
+    "name": "Update application",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/activity-instances/{instance_id}",
+    "name": "Applications get activity instance",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Activities."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/assets",
+    "name": "Get Application Assets",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/assets",
+    "name": "Create Application Asset",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/assets/upload",
+    "name": "Upload Application Asset",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/attachment",
+    "name": "Upload application attachment",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Activities."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/commands",
+    "name": "List application commands",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/commands",
+    "name": "Create application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "PUT",
+    "path": "/applications/{application_id}/commands",
+    "name": "Bulk set application commands",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Replaces every global command of the application."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/applications/{application_id}/commands/{command_id}",
+    "name": "Delete application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/commands/{command_id}",
+    "name": "Get application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}/commands/{command_id}",
+    "name": "Update application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/emojis",
+    "name": "List application emojis",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/emojis",
+    "name": "Create application emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/applications/{application_id}/emojis/{emoji_id}",
+    "name": "Delete application emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/emojis/{emoji_id}",
+    "name": "Get application emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}/emojis/{emoji_id}",
+    "name": "Update application emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/entitlements",
+    "name": "Get entitlements",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/entitlements",
+    "name": "Create entitlement",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/applications/{application_id}/entitlements/{entitlement_id}",
+    "name": "Delete entitlement",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/entitlements/{entitlement_id}",
+    "name": "Get entitlement",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/entitlements/{entitlement_id}/consume",
+    "name": "Consume entitlement",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands",
+    "name": "List guild application commands",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands",
+    "name": "Create guild application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands",
+    "name": "Bulk set guild application commands",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands/permissions",
+    "name": "List guild application command permissions",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands/{command_id}",
+    "name": "Delete guild application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands/{command_id}",
+    "name": "Get guild application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands/{command_id}",
+    "name": "Update guild application command",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands/{command_id}/permissions",
+    "name": "Get guild application command permissions",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/applications/{application_id}/guilds/{guild_id}/commands/{command_id}/permissions",
+    "name": "Set guild application command permissions",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/quick-links",
+    "name": "Create Application Quick Link",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Managed from the developer portal."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/role-connections/metadata",
+    "name": "Get application role connections metadata",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/applications/{application_id}/role-connections/metadata",
+    "name": "Update application role connections metadata",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/skus",
+    "name": "List Application SKUs",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/users/{user_id}/identities/{external_user_id}/profile",
+    "name": "Get User Application Profile",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}/users/{user_id}/identities/{external_user_id}/profile",
+    "name": "Modify User Application Profile",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/applications/{application_id}/widget-configs",
+    "name": "List Application Widget Configs",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/widget-configs",
+    "name": "Create Application Widget Config",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/applications/{application_id}/widget-configs/{widget_config_id}",
+    "name": "Delete Application Widget Config",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}/widget-configs/{widget_config_id}",
+    "name": "Modify Application Widget Config",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/widget-configs/{widget_config_id}/publish",
+    "name": "Publish Application Widget Config",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/applications/{application_id}/widget-configs/{widget_config_id}/unpublish",
+    "name": "Unpublish Application Widget Config",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/applications/{application_id}/{key}",
+    "name": "Delete Application Asset",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Managed from the developer portal."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/applications/{application_id}/{key}",
+    "name": "Update Application Asset",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Managed from the developer portal."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/attachments/refresh-urls",
+    "name": "Refresh Attachment URLs",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/attachments/report-false-positive",
+    "name": "Report Explicit Content False Positive",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Explicit content reports, from users."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/attachments/sender-report-false-positive",
+    "name": "Report Sent Explicit Content False Positive",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Explicit content reports, from users."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/attachments/{upload_filename}",
+    "name": "Delete Attachment",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}",
+    "name": "Delete channel",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}",
+    "name": "Get channel",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/channels/{channel_id}",
+    "name": "Update channel",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Changing a channel's name or topic sits behind a sub-limit of its own, a few per ten minutes, that the headers do not announce: only a 429 reveals it (discord/discord-api-docs#1900, #2190). The scenario renames once per run to stay clear of it."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/attachments",
+    "name": "Create Message Attachments",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/channels/{channel_id}/explicit-media",
+    "name": "Scan Explicit Media",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Asks Discord to scan media for explicit content."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/followers",
+    "name": "Follow channel",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/invites",
+    "name": "List channel invites",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/invites",
+    "name": "Create channel invite",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/linked-lobby",
+    "name": "Remove Lobby Link",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/messages",
+    "name": "List messages",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/messages",
+    "name": "Create message",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/messages/bulk-delete",
+    "name": "Bulk delete messages",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/messages/pins",
+    "name": "List pins",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/pins/{message_id}",
+    "name": "Delete pin",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/messages/pins/{message_id}",
+    "name": "Create pin",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}",
+    "name": "Delete message",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised",
+    "notes": [
+      "Client libraries count deletes of messages older than fourteen days, and of messages younger than ten seconds, apart from other deletes. Discord does not document it, and a run cannot create a fourteen day old message."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/messages/{message_id}",
+    "name": "Get message",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/channels/{channel_id}/messages/{message_id}",
+    "name": "Update message",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/messages/{message_id}/crosspost",
+    "name": "Crosspost message",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions",
+    "name": "Delete all message reactions",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}",
+    "name": "Delete all message reactions by emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}",
+    "name": "List message reactions by emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/@me",
+    "name": "Delete my message reaction",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/@me",
+    "name": "Add my message reaction",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/{user_id}",
+    "name": "Delete user message reaction",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji}/{reaction_type}/@me",
+    "name": "Delete Own Reaction",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/messages/{message_id}/reactions/{emoji}/{reaction_type}/{user_id}",
+    "name": "Delete Reaction",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/messages/{message_id}/threads",
+    "name": "Create thread from message",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/permissions/{overwrite_id}",
+    "name": "Delete channel permission overwrite",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/permissions/{overwrite_id}",
+    "name": "Set channel permission overwrite",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "fixed_window",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/pins",
+    "name": "Deprecated list pins",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/pins/{message_id}",
+    "name": "Deprecated delete pin",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/pins/{message_id}",
+    "name": "Deprecated create pin",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/polls/{message_id}/answers/{answer_id}",
+    "name": "Get answer voters",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/polls/{message_id}/expire",
+    "name": "Poll expire",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/recipients/{user_id}",
+    "name": "Delete group dm user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Group DMs, which bots cannot join."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/recipients/{user_id}",
+    "name": "Add group dm user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Group DMs, which bots cannot join."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/send-soundboard-sound",
+    "name": "Send soundboard sound",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Needs the bot connected to a voice channel, through the gateway."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/tags",
+    "name": "Create Channel Tag",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/tags/{forum_tag_id}",
+    "name": "Delete Channel Tag",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/tags/{forum_tag_id}",
+    "name": "Modify Channel Tag",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/thread-members",
+    "name": "List thread members",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/thread-members/@me",
+    "name": "Leave thread",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/thread-members/@me",
+    "name": "Join thread",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/channels/{channel_id}/thread-members/{user_id}",
+    "name": "Delete thread member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/thread-members/{user_id}",
+    "name": "Get thread member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/thread-members/{user_id}",
+    "name": "Add thread member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/threads",
+    "name": "Create thread",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/threads/active",
+    "name": "List Active Threads",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/threads/archived/private",
+    "name": "List private archived threads",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/threads/archived/public",
+    "name": "List public archived threads",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/threads/search",
+    "name": "Thread search",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/typing",
+    "name": "Trigger typing indicator",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/users/@me/threads/archived/private",
+    "name": "List my private archived threads",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/channels/{channel_id}/voice-status",
+    "name": "Update voice channel status",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/channels/{channel_id}/webhooks",
+    "name": "List channel webhooks",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/channels/{channel_id}/webhooks",
+    "name": "Create webhook",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/discoverable-guilds/search",
+    "name": "Search Discoverable Guilds",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/discovery/categories",
+    "name": "List Discovery Categories",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/discovery/valid-term",
+    "name": "Validate Discovery Search Term",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/gateway",
+    "name": "Get gateway",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/gateway/bot",
+    "name": "Get bot gateway",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "fixed_window",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/gifs/select",
+    "name": "Track Selected GIF",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Client analytics."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/templates/{code}",
+    "name": "Get guild template",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}",
+    "name": "Get guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}",
+    "name": "Update guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/audit-logs",
+    "name": "List guild audit log entries",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/auto-moderation/rules",
+    "name": "List auto moderation rules",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/auto-moderation/rules",
+    "name": "Create auto moderation rule",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/auto-moderation/rules/{rule_id}",
+    "name": "Delete auto moderation rule",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/auto-moderation/rules/{rule_id}",
+    "name": "Get auto moderation rule",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/auto-moderation/rules/{rule_id}",
+    "name": "Update auto moderation rule",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/bans",
+    "name": "List guild bans",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/bans/{user_id}",
+    "name": "Unban user from guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/bans/{user_id}",
+    "name": "Get guild ban",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/bans/{user_id}",
+    "name": "Ban user from guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/basic",
+    "name": "Get Guild Basic",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/bulk-ban",
+    "name": "Bulk ban users from guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/bulk-ban/v2",
+    "name": "Bulk Guild Ban V2",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/channels",
+    "name": "List guild channels",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "fixed_window",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/channels",
+    "name": "Bulk update guild channels",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/channels",
+    "name": "Create guild channel",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/discovery-categories/{discovery_category_id}",
+    "name": "Remove Guild Discovery Subcategory",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/discovery-categories/{discovery_category_id}",
+    "name": "Add Guild Discovery Subcategory",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/discovery-metadata",
+    "name": "Get Guild Discovery Metadata",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/discovery-metadata",
+    "name": "Modify Guild Discovery Metadata",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/discovery-requirements",
+    "name": "Get Guild Discovery Requirements",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Server discovery, for eligible guilds only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/emojis",
+    "name": "List guild emojis",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/emojis",
+    "name": "Create guild emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/emojis/{emoji_id}",
+    "name": "Delete guild emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/emojis/{emoji_id}",
+    "name": "Get guild emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/emojis/{emoji_id}",
+    "name": "Update guild emoji",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/incident-actions",
+    "name": "Update guild incident actions",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/integrations",
+    "name": "List guild integrations",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/integrations/{integration_id}",
+    "name": "Delete guild integration",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Removes an integration, possibly the bot's own."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/invites",
+    "name": "List guild invites",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/member-verification",
+    "name": "Get Guild Member Verification",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/member-verification",
+    "name": "Modify Guild Member Verification",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/members",
+    "name": "List guild members",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "fixed_window",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/members-search",
+    "name": "Search Guild Members",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Answers 202 with a retry_after in its body while the guild's search index is being built."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/members/@me",
+    "name": "Update my guild member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "fixed_window",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/members/@me/nick",
+    "name": "Modify Current Guild Member Nick",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Deprecated, replaced by PATCH /guilds/{guild_id}/members/@me."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/members/search",
+    "name": "Search guild members",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/members/{user_id}",
+    "name": "Delete guild member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/members/{user_id}",
+    "name": "Get guild member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/members/{user_id}",
+    "name": "Update guild member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "fixed_window",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/members/{user_id}",
+    "name": "Add guild member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Adds a user to a guild with their OAuth2 token."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/members/{user_id}/roles/{role_id}",
+    "name": "Delete guild member role",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "fixed_window",
+    "family": "member_roles",
+    "coverage": "exercised",
+    "notes": [
+      "Adding and removing a member's role share one bucket, per guild."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/members/{user_id}/roles/{role_id}",
+    "name": "Add guild member role",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "fixed_window",
+    "family": "member_roles",
+    "coverage": "exercised",
+    "notes": [
+      "Adding and removing a member's role share one bucket, per guild."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/messages/search",
+    "name": "Guild search",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised",
+    "notes": [
+      "Answers 202 with a retry_after in its body while the guild's search index is being built."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/migrate-bypass-slowmode-permission",
+    "name": "Migrate Bypass Slowmode Permission",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: A one-time migration of the guild's permissions."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/migrate-pin-permission",
+    "name": "Migrate Pin Permission",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: A one-time migration of the guild's permissions."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/new-member-welcome",
+    "name": "Get guild new member welcome",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/onboarding",
+    "name": "Get guilds onboarding",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/onboarding",
+    "name": "Put guilds onboarding",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/preview",
+    "name": "Get guild preview",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/products",
+    "name": "Create Guild Product Listing",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/prune",
+    "name": "Preview prune guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/prune",
+    "name": "Prune guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/regions",
+    "name": "List guild voice regions",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/requests",
+    "name": "Get guild join requests",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/requests/{request_id}",
+    "name": "Action guild join request",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Needs a pending join request."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/roles",
+    "name": "List guild roles",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/roles",
+    "name": "Bulk update guild roles",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/roles",
+    "name": "Create guild role",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/roles/member-counts",
+    "name": "Guild role member counts",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/roles/{role_id}",
+    "name": "Delete guild role",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/roles/{role_id}",
+    "name": "Get guild role",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/roles/{role_id}",
+    "name": "Update guild role",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/scheduled-events",
+    "name": "List guild scheduled events",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/scheduled-events",
+    "name": "Create guild scheduled event",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+    "name": "Delete guild scheduled event",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+    "name": "Get guild scheduled event",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+    "name": "Update guild scheduled event",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions",
+    "name": "Create guild scheduled event exception",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions/{exception_id}",
+    "name": "Delete guild scheduled event exception",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions/{exception_id}",
+    "name": "Update guild scheduled event exception",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/users",
+    "name": "List guild scheduled event users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/users/counts",
+    "name": "Count guild scheduled event users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/{guild_scheduled_event_exception_id}/users",
+    "name": "List guild scheduled event exception users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/soundboard-sounds",
+    "name": "List guild soundboard sounds",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/soundboard-sounds",
+    "name": "Create guild soundboard sound",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/soundboard-sounds/{sound_id}",
+    "name": "Delete guild soundboard sound",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/soundboard-sounds/{sound_id}",
+    "name": "Get guild soundboard sound",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/soundboard-sounds/{sound_id}",
+    "name": "Update guild soundboard sound",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/stickers",
+    "name": "List guild stickers",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/stickers",
+    "name": "Create guild sticker",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/stickers/{sticker_id}",
+    "name": "Delete guild sticker",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/stickers/{sticker_id}",
+    "name": "Get guild sticker",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/stickers/{sticker_id}",
+    "name": "Update guild sticker",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/templates",
+    "name": "List guild templates",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/guilds/{guild_id}/templates",
+    "name": "Create guild template",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/guilds/{guild_id}/templates/{code}",
+    "name": "Delete guild template",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/templates/{code}",
+    "name": "Update guild template",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/guilds/{guild_id}/templates/{code}",
+    "name": "Sync guild template",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/threads/active",
+    "name": "Get active guild threads",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/top-read-channels",
+    "name": "List Guild Top Read Channels",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/vanity-url",
+    "name": "Get guild vanity url",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/voice-states/@me",
+    "name": "Get self voice state",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/voice-states/@me",
+    "name": "Update self voice state",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/voice-states/{user_id}",
+    "name": "Get voice state",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/voice-states/{user_id}",
+    "name": "Update voice state",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/webhooks",
+    "name": "Get guild webhooks",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/welcome-screen",
+    "name": "Get guild welcome screen",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/welcome-screen",
+    "name": "Update guild welcome screen",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/widget",
+    "name": "Get guild widget settings",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/guilds/{guild_id}/widget",
+    "name": "Update guild widget settings",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/widget.json",
+    "name": "Get guild widget",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/guilds/{guild_id}/widget.png",
+    "name": "Get guild widget png",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/interactions/{interaction_id}/{interaction_token}/callback",
+    "name": "Create interaction response",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": false,
+    "model": "unknown",
+    "coverage": "needs_interaction",
+    "notes": [
+      "Interaction endpoints are not bound to the bot's global limit (Discord's documentation, Global Rate Limit)."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/invites/{code}",
+    "name": "Invite revoke",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/invites/{code}",
+    "name": "Invite resolve",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/invites/{code}/friend-members",
+    "name": "List Invite Friend Members",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Friends, which bots do not have."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/invites/{code}/target-users",
+    "name": "Get invite target users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/invites/{code}/target-users",
+    "name": "Update invite target users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Not covered yet."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/invites/{code}/target-users/bulk-add",
+    "name": "Bulk add invite target users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Not covered yet."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/invites/{code}/target-users/bulk-delete",
+    "name": "Bulk remove invite target users",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Not covered yet."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/invites/{code}/target-users/job-status",
+    "name": "Get invite target users job status",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Not covered yet."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/invites/{code}/target-users/{user_id}",
+    "name": "Remove invite target user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PUT",
+    "path": "/invites/{code}/target-users/{user_id}",
+    "name": "Add invite target user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/lobbies",
+    "name": "Create lobby",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/lobbies",
+    "name": "Create or join lobby",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/lobbies/{lobby_id}",
+    "name": "Delete lobby",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/lobbies/{lobby_id}",
+    "name": "Get lobby",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/lobbies/{lobby_id}",
+    "name": "Edit lobby",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/lobbies/{lobby_id}/channel-linking",
+    "name": "Edit lobby channel link",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/lobbies/{lobby_id}/members/@me",
+    "name": "Leave lobby",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/lobbies/{lobby_id}/members/@me/invites",
+    "name": "Create linked lobby guild invite for self",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/lobbies/{lobby_id}/members/bulk",
+    "name": "Bulk update lobby members",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/lobbies/{lobby_id}/members/{user_id}",
+    "name": "Delete lobby member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/lobbies/{lobby_id}/members/{user_id}",
+    "name": "Add lobby member",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/lobbies/{lobby_id}/members/{user_id}/invites",
+    "name": "Create linked lobby guild invite for user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/lobbies/{lobby_id}/messages",
+    "name": "Get lobby messages",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/lobbies/{lobby_id}/messages",
+    "name": "Create lobby message",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/lobbies/{lobby_id}/messages/{message_id}/moderation-metadata",
+    "name": "Update lobby message external moderation metadata",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Lobbies belong to the Social SDK."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/messages/explicit-media",
+    "name": "Bulk Scan Explicit Media",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Asks Discord to scan media for explicit content."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/oauth2/@me",
+    "name": "Get my oauth2 authorization",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/oauth2/applications/@me",
+    "name": "Get my oauth2 application",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/oauth2/keys",
+    "name": "Get public keys",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/oauth2/userinfo",
+    "name": "Get openid connect userinfo",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/outbound-promotions",
+    "name": "List Outbound Promotions",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Promotions."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/partner-sdk/dms/{user_id_1}/{user_id_2}/messages/{message_id}/moderation-metadata",
+    "name": "Update user message external moderation metadata",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/partner-sdk/provisional-accounts/unmerge",
+    "name": "Partner sdk unmerge provisional account",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/partner-sdk/provisional-accounts/unmerge/bot",
+    "name": "Bot partner sdk unmerge provisional account",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/partner-sdk/token",
+    "name": "Partner sdk token",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Social SDK."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/partner-sdk/token/bot",
+    "name": "Bot partner sdk token",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Social SDK."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/promotions",
+    "name": "List Promotions",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Promotions."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/skus/{sku_id}/subscriptions",
+    "name": "Get sku subscriptions",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/skus/{sku_id}/subscriptions/{subscription_id}",
+    "name": "Get sku subscription",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/soundboard-default-sounds",
+    "name": "Get soundboard default sounds",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/stage-instances",
+    "name": "Create stage instance",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "DELETE",
+    "path": "/stage-instances/{channel_id}",
+    "name": "Delete stage instance",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/stage-instances/{channel_id}",
+    "name": "Get stage instance",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "PATCH",
+    "path": "/stage-instances/{channel_id}",
+    "name": "Update stage instance",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "channel_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "gated"
+  },
+  {
+    "method": "GET",
+    "path": "/sticker-packs",
+    "name": "List sticker packs",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/sticker-packs/{pack_id}",
+    "name": "Get sticker pack",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/stickers/{sticker_id}",
+    "name": "Get sticker",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/store/applications/{application_id}/assets",
+    "name": "List Application Store Assets",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/store/applications/{application_id}/assets",
+    "name": "Create Application Store Asset",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/store/applications/{application_id}/assets/{asset_id}",
+    "name": "Delete Application Store Asset",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/store/listings",
+    "name": "Create Store Listing",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/store/listings/{store_listing_id}",
+    "name": "Delete Store Listing",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/store/listings/{store_listing_id}",
+    "name": "Get Store Listing",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/store/listings/{store_listing_id}",
+    "name": "Modify Store Listing",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/store/skus",
+    "name": "Create SKU",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/store/skus/{sku_id}",
+    "name": "Get SKU",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/store/skus/{sku_id}",
+    "name": "Modify SKU",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/store/skus/{sku_id}/listings",
+    "name": "List SKU Store Listings",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/store/skus/{sku_id}/plans",
+    "name": "List Subscription Plans",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Monetization."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me",
+    "name": "Get my user",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/users/@me",
+    "name": "Update my user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Changes the bot's profile, under a limit of a few changes per hour."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me/applications/{application_id}/entitlements",
+    "name": "Get current user application entitlements",
+    "source": "discord",
+    "auth": [
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/users/@me/applications/{application_id}/role-connection",
+    "name": "Delete application user role connection",
+    "source": "discord",
+    "auth": [
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me/applications/{application_id}/role-connection",
+    "name": "Get application user role connection",
+    "source": "discord",
+    "auth": [
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/users/@me/applications/{application_id}/role-connection",
+    "name": "Update application user role connection",
+    "source": "discord",
+    "auth": [
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/users/@me/channels",
+    "name": "Create dm",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me/connections",
+    "name": "List my connections",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me/dms/{user_id}",
+    "name": "Get DM Channel",
+    "source": "userdoccers",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: User accounts only."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me/guilds",
+    "name": "List my guilds",
+    "source": "discord",
+    "auth": [
+      "bot",
+      "oauth2"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/users/@me/guilds/{guild_id}",
+    "name": "Leave guild",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "not_exercised",
+    "notes": [
+      "Not exercised: Makes the bot leave the guild."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/@me/guilds/{guild_id}/member",
+    "name": "Get my guild member",
+    "source": "discord",
+    "auth": [
+      "oauth2"
+    ],
+    "major": "guild_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: needs an OAuth2 token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/users/{user_id}",
+    "name": "Get user",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "token_bucket",
+    "coverage": "exercised",
+    "notes": [
+      "No major parameter: whether every user shares one counter is what the scenario's back to back reads of two users show."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/voice/regions",
+    "name": "List voice regions",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/webhooks/{webhook_id}",
+    "name": "Delete webhook",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "webhook_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/webhooks/{webhook_id}",
+    "name": "Get webhook",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "webhook_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/webhooks/{webhook_id}",
+    "name": "Update webhook",
+    "source": "discord",
+    "auth": [
+      "bot"
+    ],
+    "major": "webhook_id",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "DELETE",
+    "path": "/webhooks/{webhook_id}/{webhook_token}",
+    "name": "Delete webhook by token",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/webhooks/{webhook_id}/{webhook_token}",
+    "name": "Get webhook by token",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/webhooks/{webhook_id}/{webhook_token}",
+    "name": "Update webhook by token",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/webhooks/{webhook_id}/{webhook_token}",
+    "name": "Execute webhook",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
+      "With an interaction token, this sends a followup: exempt from the global limit, like every interaction endpoint.",
+      "Callable without an Authorization header, in which case Discord applies the global limit to the IP address."
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/github",
+    "name": "Execute github compatible webhook",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Called by GitHub, not by a bot."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/messages/@original",
+    "name": "Delete original webhook message",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "family": "webhook_messages",
+    "coverage": "needs_interaction",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/messages/@original",
+    "name": "Get original webhook message",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "family": "webhook_messages",
+    "coverage": "needs_interaction",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
+  },
+  {
+    "method": "PATCH",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/messages/@original",
+    "name": "Update original webhook message",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "family": "webhook_messages",
+    "coverage": "needs_interaction",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
+  },
+  {
+    "method": "DELETE",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+    "name": "Delete webhook message",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "GET",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+    "name": "Get webhook message",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "PATCH",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+    "name": "Update webhook message",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "exercised"
+  },
+  {
+    "method": "POST",
+    "path": "/webhooks/{webhook_id}/{webhook_token}/slack",
+    "name": "Execute slack compatible webhook",
+    "source": "discord",
+    "auth": [
+      "none",
+      "bot"
+    ],
+    "major": "webhook_id+webhook_token",
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Called by Slack, not by a bot."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/widget-configs/developer",
+    "name": "Get Developer Application Widget Configs",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/widget-configs/featured",
+    "name": "List Featured Application Widget Configs",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/widget-configs/layout-definitions",
+    "name": "Get Layout Definitions",
+    "source": "userdoccers",
+    "auth": [
+      "bot"
+    ],
+    "global": true,
+    "model": "unknown",
+    "coverage": "out_of_scope",
+    "notes": [
+      "Out of scope: Application widgets, managed from the developer portal."
+    ]
+  }
+]
