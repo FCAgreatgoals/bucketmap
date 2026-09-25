@@ -1,2 +1,4 @@
 bucketmap.json
 /bucketmap
+# Reports hold measured limits: they stay on the machine that ran them.
+/reports/

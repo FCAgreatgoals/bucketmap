@@ -53,7 +53,8 @@ bucketmap run -guild GUILD_ID -users USER1,USER2,USER3,USER4
 ```
 
 The run takes ten minutes, prints a summary, and writes the full report to
-`bucketmap.json`. Everything it creates is deleted at the end.
+`reports/`, which git ignores: a report holds your bot's measured limits.
+Everything the run creates is deleted at the end.
 
 ## What a run gives you
 

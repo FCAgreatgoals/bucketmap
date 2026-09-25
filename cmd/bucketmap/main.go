@@ -14,6 +14,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 	"time"
@@ -75,7 +76,7 @@ func runCmd(args []string) int {
 	allowBan := fs.Bool("allow-ban", false, "ban then unban test user 4, who then has to rejoin")
 	allowPrune := fs.Bool("allow-prune", false, "prune members inactive for thirty days who hold no role")
 	allowGlobal := fs.Bool("allow-global-commands", false, "create and delete a global command, seen for a moment by every guild of the bot")
-	out := fs.String("report", "bucketmap.json", "where to write the report")
+	out := fs.String("report", filepath.Join("reports", "bucketmap-"+time.Now().Format("2006-01-02-150405")+".json"), "where to write the report (reports/ is ignored by git: a report holds your measured limits)")
 	only := fs.String("only", "", "comma separated groups to run, and those they need ("+strings.Join(engine.Groups(), ", ")+")")
 	missing := fs.String("missing", "", "comma separated earlier reports: run only the groups with a route they left unseen or unknown")
 	fs.Parse(args)
@@ -107,9 +108,15 @@ func runCmd(args []string) int {
 	})
 	if r != nil {
 		if raw, err := json.MarshalIndent(r, "", "  "); err == nil {
-			_ = os.WriteFile(*out, raw, 0o644)
+			if dir := filepath.Dir(*out); dir != "." {
+				_ = os.MkdirAll(dir, 0o755)
+			}
+			if err := os.WriteFile(*out, raw, 0o644); err != nil {
+				fmt.Fprintln(os.Stderr, "bucketmap:", err)
+			}
 		}
 		r.Print(os.Stdout)
+		fmt.Printf("\nreport written to %s\n", *out)
 	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "bucketmap:", err)
