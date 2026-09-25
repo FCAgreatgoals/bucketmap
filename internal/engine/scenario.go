@@ -62,8 +62,13 @@ var afterFailure = skip("an earlier step failed")
 func (s *scenario) step(name string, fn func() error) {
 	err := fn()
 	var sk errSkip
+	var se *statusError
 	switch {
 	case err == nil:
+	case errors.As(err, &se) && se.status == 429 && se.scope == "shared":
+		// A limit on the resource itself, not on the bot: Discord does not
+		// even count it as an invalid request, and no pacing avoids it.
+		s.skipped = append(s.skipped, name+": the resource was rate limited (shared 429)")
 	case errors.As(err, &sk):
 		s.skipped = append(s.skipped, name+": "+sk.reason)
 	default:
@@ -117,10 +122,38 @@ func (s *scenario) do(step, method, route, path string, body, out any) error {
 	if err := s.c.do(call{step: step, method: method, route: route, path: path, body: body}, out); err != nil {
 		return err
 	}
-	if method != "GET" {
+	if !repeatable(method, route, body) {
 		return nil
 	}
-	return s.c.do(call{step: step + " (again)", method: method, route: route, path: path, immediate: true}, nil)
+	return s.c.do(call{step: step + " (again)", method: method, route: route, path: path, body: body, immediate: true}, nil)
+}
+
+// repeatable says whether a request can be sent again at once without
+// changing anything: reads, and PUT and PATCH, which set a state rather than
+// add to it. Channel renames and topic changes are left alone, behind their
+// sub-limit, and so are event exceptions, which Discord refuses to set twice
+// to the same value.
+func repeatable(method, route string, body any) bool {
+	switch method {
+	case "GET":
+		return true
+	case "PUT", "PATCH":
+		if strings.Contains(route, "/exceptions/") {
+			return false
+		}
+		if route == "/channels/{channel_id}" {
+			if m, ok := body.(map[string]any); ok {
+				if _, renames := m["name"]; renames {
+					return false
+				}
+				if _, topic := m["topic"]; topic {
+					return false
+				}
+			}
+		}
+		return true
+	}
+	return false
 }
 
 // pair sends the same request twice in a row, the second without spacing.

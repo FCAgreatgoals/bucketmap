@@ -117,9 +117,13 @@
     "token_bucket": [
       "DELETE /channels/{channel_id}/messages/{message_id}",
       "DELETE /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+      "DELETE /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions/{exception_id}",
       "DELETE /webhooks/{webhook_id}/{webhook_token}",
       "DELETE /webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
       "GET /channels/{channel_id}/messages",
+      "GET /channels/{channel_id}/messages/pins",
+      "GET /channels/{channel_id}/messages/{message_id}",
+      "GET /channels/{channel_id}/pins",
       "GET /channels/{channel_id}/threads/search",
       "GET /guilds/templates/{code}",
       "GET /guilds/{guild_id}/auto-moderation/rules",

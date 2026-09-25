@@ -163,7 +163,7 @@ func (c *client) do(k call, out any) error {
 	c.results = append(c.results, r)
 
 	if res.StatusCode < 200 || res.StatusCode > 299 {
-		return &statusError{status: res.StatusCode, msg: fmt.Sprintf("%s %s: %d %s", k.method, redact(k.route, k.path), res.StatusCode, truncate(string(payload), 200))}
+		return &statusError{status: res.StatusCode, scope: r.Scope, msg: fmt.Sprintf("%s %s: %d %s", k.method, redact(k.route, k.path), res.StatusCode, truncate(string(payload), 200))}
 	}
 	if out != nil && len(payload) > 0 {
 		if err := json.Unmarshal(payload, out); err != nil && !c.lenient {
@@ -176,6 +176,7 @@ func (c *client) do(k call, out any) error {
 // statusError is a response outside 2xx.
 type statusError struct {
 	status int
+	scope  string
 	msg    string
 }
 

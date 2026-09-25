@@ -922,7 +922,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -977,7 +977,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1159,7 +1159,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised",
     "notes": [
       "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
@@ -2627,7 +2627,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {

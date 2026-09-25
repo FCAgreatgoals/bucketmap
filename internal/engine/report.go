@@ -168,7 +168,9 @@ func modelBuckets(results []Result) []BucketModel {
 func (r *Report) TooMany() []Result {
 	var out []Result
 	for _, res := range r.Results {
-		if res.Status == 429 {
+		// A shared 429 limits the resource, not the bot: Discord does not
+		// count it against anyone, and no pacing avoids it.
+		if res.Status == 429 && res.Scope != "shared" {
 			out = append(out, res)
 		}
 	}
