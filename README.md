@@ -25,6 +25,7 @@ limited.
 - [Quick start](#quick-start)
 - [What a run gives you](#what-a-run-gives-you)
 - [Testing a proxy](#testing-a-proxy)
+- [Running part of the scenario](#running-part-of-the-scenario)
 - [Using the index](#using-the-index)
 - [Two ways a bucket refills](#two-ways-a-bucket-refills)
 - [What the engine touches](#what-the-engine-touches)
@@ -80,6 +81,34 @@ bucketmap compare direct.json proxied.json
 The proxy conforms when every step answered the same and nothing through it hit
 a 429. The same works for anything that stands in for Discord.
 
+## Running part of the scenario
+
+The scenario is split into groups: `messages`, `reactions`, `pins`,
+`threads`, `attachments`, `polls`, `channel`, `invites`, `webhooks`, `guild`,
+`guild-reads`, `roles`, `members`, `automod`, `emojis`, `stickers`,
+`soundboard`, `events`, `templates`, `community`, `application`, `commands`,
+`users`, `public`, `moderation`. The preflight, the setup and the cleanup
+always run.
+
+```sh
+# Just some groups, and those they need
+bucketmap run -guild GUILD_ID -users ... -only community,events -report more.json
+
+# Only the groups an earlier run left something to learn in
+bucketmap run -guild GUILD_ID -users ... -missing bucketmap.json -report more.json
+
+# One report out of several runs
+bucketmap merge -report all.json bucketmap.json more.json
+```
+
+`-missing` picks the groups with a route no report has seen, or whose bucket
+model is still unknown. After turning a guild into a community guild, it
+runs the community steps and nothing else you already have.
+
+`bucketmap learn all.json` records the models a run settled in
+[`routes/annotations.json`](routes/annotations.json), the model only, and
+`bucketmap index` puts them in the index.
+
 ## Using the index
 
 The index is [`routes/index.json`](routes/index.json), plain JSON any language
@@ -104,7 +133,7 @@ can read. An entry looks like this:
 |---|---|
 | `major` | The parameter that gives each value its own counter: `channel_id`, `guild_id`, `webhook_id`, or `webhook_id+webhook_token`. Empty when every call shares one counter. |
 | `global` | `false` for routes exempt from the bot's global limit. |
-| `model` | `token_bucket`, `fixed_window`, or `unknown` until a run has seen it. |
+| `model` | `token_bucket`, `fixed_window`, `global_only` for a route Discord does not limit on its own, or `unknown` until a run has settled it. |
 | `family` | Routes Discord counts together, in a single bucket. |
 | `source` | `discord` for [Discord's OpenAPI specification](https://github.com/discord/discord-api-spec), `userdoccers` for routes only [Discord Userdoccers](https://docs.discord.food) documents, such as `POST /guilds/{guild_id}/members-search`. |
 | `coverage` | Whether the engine exercises the route, and if not, why (in `notes`). |
@@ -132,11 +161,16 @@ that means two different things depending on the bucket:
 | `Reset-After` as the bucket drains | Shrinks | Grows |
 
 Two requests on the same bucket, back to back, are enough to tell them apart,
-far below any limit. The engine sends a few such pairs on purpose.
+far below any limit. The engine sends every read twice in a row, and a few
+writes that undo themselves, on purpose.
+
+Some routes are not limited on their own at all: Discord answers them with a
+limit of a thousand that resets within a millisecond, and only the global
+limit holds them back. The index marks them `global_only`.
 
 ## What the engine touches
 
-It works only in the guild whose name carries the marker, spreads about 270
+It works only in the guild whose name carries the marker, spreads about 370
 requests over the run (`-duration`, ten minutes by default), waits out any
 bucket that reports nothing left, and never retries a 429. Every request
 carries an audit log reason naming its step, and everything it creates is
