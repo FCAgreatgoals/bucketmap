@@ -145,7 +145,7 @@ can read. An entry looks like this:
 |---|---|
 | `major` | The parameter that gives each value its own counter: `channel_id`, `guild_id`, `webhook_id`, or `webhook_id+webhook_token`. Empty when every call shares one counter. |
 | `global` | `false` for routes exempt from the bot's global limit. |
-| `model` | `token_bucket`, `fixed_window`, `global_only` for a route Discord does not limit on its own, or `unknown` until a run has settled it. |
+| `model` | `token_bucket`, `fixed_window`, `single` for a bucket of one request (both behave the same), `global_only` for a route Discord does not limit on its own, or `unknown` until a run has settled it. |
 | `family` | Routes Discord counts together, in a single bucket. |
 | `source` | `discord` for [Discord's OpenAPI specification](https://github.com/discord/discord-api-spec), `userdoccers` for routes only [Discord Userdoccers](https://docs.discord.food) documents, such as `POST /guilds/{guild_id}/members-search`. |
 | `coverage` | Whether the engine exercises the route, and if not, why (in `notes`). |

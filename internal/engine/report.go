@@ -29,7 +29,8 @@ type BucketModel struct {
 	Bucket string   `json:"bucket"`
 	Routes []string `json:"routes"`
 	Limit  int      `json:"limit"`
-	// Model is "token bucket", "fixed window", "global only" for a route
+	// Model is "token bucket", "fixed window", "single" for a bucket of one
+	// request, where both behave the same, "global only" for a route
 	// Discord does not limit on its own, or "unknown" when no two requests of
 	// the run fell within one window of each other.
 	Model string `json:"model"`
@@ -139,6 +140,17 @@ func modelBuckets(results []Result) []BucketModel {
 			if r.Limit < globalOnlyLimit || r.ResetAfter > globalOnlyReset {
 				globalOnly = false
 			}
+		}
+		// A bucket of one request has no model to find: a token bucket and a
+		// fixed window of one behave the same, one request then the wait.
+		single := len(rs) > 0
+		for _, r := range rs {
+			if r.Limit != 1 {
+				single = false
+			}
+		}
+		if single && m.Model == "unknown" {
+			m.Model = "single"
 		}
 		if globalOnly && m.Model == "unknown" {
 			m.Model = "global only"

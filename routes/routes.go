@@ -26,6 +26,9 @@ const (
 	// FixedWindow refills all at once, when the window ends: the instant
 	// X-RateLimit-Reset-After points to stays put across requests.
 	FixedWindow Model = "fixed_window"
+	// Single is a bucket of one request: a token bucket and a fixed window of
+	// one behave the same, one request then the wait.
+	Single Model = "single"
 	// GlobalOnly is a route Discord does not limit on its own: it answers a
 	// limit of a thousand that resets within milliseconds, and only the
 	// global limit holds it back.

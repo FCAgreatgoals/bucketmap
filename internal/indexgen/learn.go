@@ -15,6 +15,7 @@ var models = map[string]routes.Model{
 	"token bucket": routes.TokenBucket,
 	"fixed window": routes.FixedWindow,
 	"global only":  routes.GlobalOnly,
+	"single":       routes.Single,
 }
 
 // Change is a model learned for a route.

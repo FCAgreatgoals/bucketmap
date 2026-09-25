@@ -276,7 +276,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -512,7 +512,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -524,7 +524,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -909,7 +909,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1016,7 +1016,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1029,7 +1029,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1055,7 +1055,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1068,7 +1068,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1081,7 +1081,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1094,7 +1094,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1107,7 +1107,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -1281,7 +1281,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1294,7 +1294,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1307,7 +1307,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1798,7 +1798,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "gated"
   },
   {
@@ -1811,7 +1811,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "gated"
   },
   {
@@ -2546,7 +2546,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {
@@ -2585,7 +2585,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised",
     "notes": [
       "Waiting the announced Reset-After is not always enough: on this one request bucket, a request sent 5.001 s after a Reset-After of 5 was refused, with 0.3 s more to wait."
@@ -3171,7 +3171,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -3198,7 +3198,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4095,7 +4095,7 @@
       "oauth2"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "single",
     "coverage": "exercised"
   },
   {

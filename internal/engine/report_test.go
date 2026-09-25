@@ -98,3 +98,10 @@ func TestModelBucketsKeepsWhatIsSureOfAnUnknownBucket(t *testing.T) {
 		t.Fatalf("got %+v", got)
 	}
 }
+
+func TestModelBucketsCallsBucketsOfOneSingle(t *testing.T) {
+	got := modelBuckets(sequence("/r", 1, []float64{0, 1}, []float64{0.25, 0.25}, []int{0, 0}))
+	if len(got) != 1 || got[0].Model != "single" {
+		t.Fatalf("got %+v", got)
+	}
+}
