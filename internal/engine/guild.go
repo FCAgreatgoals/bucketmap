@@ -495,7 +495,7 @@ func (s *scenario) exerciseCommunity() {
 			return err
 		}
 		news = ch.ID
-		s.threads = append(s.threads, news)
+		s.extra = append(s.extra, named{"announcement channel", news})
 		var m object
 		if err := s.do("send announcement", "POST", "/channels/{channel_id}/messages", "/channels/"+news+"/messages", map[string]any{"content": "bucketmap announcement"}, &m); err != nil {
 			return err
@@ -523,7 +523,7 @@ func (s *scenario) exerciseCommunity() {
 			return err
 		}
 		stage = ch.ID
-		s.threads = append(s.threads, stage)
+		s.extra = append(s.extra, named{"stage channel", stage})
 		route := "/stage-instances/{channel_id}"
 		if err := s.do("start stage instance", "POST", "/stage-instances", "/stage-instances", map[string]any{"channel_id": stage, "topic": s.cfg.Marker}, nil); err != nil {
 			return err

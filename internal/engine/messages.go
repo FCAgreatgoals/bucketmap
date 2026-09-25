@@ -185,7 +185,7 @@ func (s *scenario) exerciseThreads() {
 		var t object
 		err := s.do("start thread from message", "POST", "/channels/{channel_id}/messages/{message_id}/threads", "/channels/"+ch+"/messages/"+s.msg(2)+"/threads", map[string]any{"name": s.cfg.Marker + "-thread"}, &t)
 		if err == nil {
-			s.threads = append(s.threads, t.ID)
+			s.extra = append(s.extra, named{"thread", t.ID})
 		}
 		return err
 	})
@@ -197,7 +197,7 @@ func (s *scenario) exerciseThreads() {
 		var t object
 		err := s.do("start thread", "POST", "/channels/{channel_id}/threads", "/channels/"+ch+"/threads", map[string]any{"name": s.cfg.Marker + "-thread-2", "type": 12}, &t)
 		if err == nil {
-			s.threads = append(s.threads, t.ID)
+			s.extra = append(s.extra, named{"private thread", t.ID})
 			private = t.ID
 		}
 		return err

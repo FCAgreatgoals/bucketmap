@@ -10,6 +10,8 @@ import (
 // administrator is the ADMINISTRATOR permission bit.
 const administrator = 1 << 3
 
+type named struct{ label, id string }
+
 type object struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
@@ -32,7 +34,10 @@ type scenario struct {
 	text2    string
 	voice    string
 	forum    string
-	threads  []string
+	// extra are channels created along the way, named for their cleanup
+	// step: a name, not a position, so that runs with and without the
+	// community steps still line up.
+	extra    []named
 	messages []string
 	webhook  object
 	webhook2 object
@@ -465,13 +470,16 @@ func (s *scenario) cleanup() {
 			return s.do("delete application emoji", "DELETE", "/applications/{application_id}/emojis/{emoji_id}", "/applications/"+s.appID+"/emojis/"+s.appEmoji, nil, nil)
 		})
 	}
-	for i, id := range append(append([]string{}, s.threads...), s.text, s.text2, s.voice, s.forum, s.category) {
-		if id == "" {
+	channels := append(append([]named{}, s.extra...),
+		named{"text channel", s.text}, named{"second text channel", s.text2},
+		named{"voice channel", s.voice}, named{"forum channel", s.forum}, named{"category", s.category})
+	for _, ch := range channels {
+		if ch.id == "" {
 			continue
 		}
-		name := fmt.Sprintf("delete channel %d", i+1)
+		name := "delete " + ch.label
 		s.step(name, func() error {
-			return s.do(name, "DELETE", "/channels/{channel_id}", "/channels/"+id, nil, nil)
+			return s.do(name, "DELETE", "/channels/{channel_id}", "/channels/"+ch.id, nil, nil)
 		})
 	}
 	for i, id := range s.roles {
