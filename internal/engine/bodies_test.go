@@ -52,3 +52,13 @@ func TestCompareShapesTreatsIdKeyedObjectsAsMaps(t *testing.T) {
 		t.Fatalf("id keys reported as fields: %+v", got)
 	}
 }
+
+// A list holding several kinds is compared by the union of their fields, not
+// by whichever element happens to come first.
+func TestCompareShapesUnitesListElements(t *testing.T) {
+	direct := &Report{Results: []Result{{Step: "l", Method: "GET", Route: "/l", Status: 200, Response: []byte(`[{"id":"1","type":4},{"id":"2","type":0,"topic":null}]`)}}}
+	candidate := &Report{Results: []Result{{Step: "l", Method: "GET", Route: "/l", Status: 200, Response: []byte(`[{"id":"2","type":0,"topic":null},{"id":"1","type":4}]`)}}}
+	if got := CompareShapes(direct, candidate); len(got) != 0 {
+		t.Fatalf("order reported as a difference: %+v", got)
+	}
+}

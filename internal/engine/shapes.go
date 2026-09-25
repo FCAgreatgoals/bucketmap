@@ -101,16 +101,54 @@ func compareShape(path string, d, c any, diff *ShapeDiff) {
 			diff.Types = append(diff.Types, fmt.Sprintf("%s: %s, candidate %s", field(path), kind(d), kind(c)))
 			return
 		}
-		// Elements are compared by shape, first with first: lists hold
-		// objects of one kind, and their order or length is data, not shape.
+		// Elements are compared by the union of their shapes: a list's order
+		// and length are data, and one list can hold several kinds, such as a
+		// guild's categories, text and voice channels.
 		if len(dt) > 0 && len(ct) > 0 {
-			compareShape(path+"[]", dt[0], ct[0], diff)
+			compareShape(path+"[]", union(dt), union(ct), diff)
 		}
 	default:
 		if kind(d) != kind(c) {
 			diff.Types = append(diff.Types, fmt.Sprintf("%s: %s, candidate %s", field(path), kind(d), kind(c)))
 		}
 	}
+}
+
+// union merges the elements of a list into one value carrying every field any
+// of them has, the first non-null value of each giving its type.
+func union(items []any) any {
+	var merged map[string]any
+	var first any
+	for _, it := range items {
+		m, ok := it.(map[string]any)
+		if !ok {
+			if first == nil {
+				first = it
+			}
+			continue
+		}
+		if merged == nil {
+			merged = map[string]any{}
+		}
+		for k, v := range m {
+			switch prev := merged[k].(type) {
+			case nil:
+				merged[k] = v
+			case map[string]any:
+				if vm, ok := v.(map[string]any); ok {
+					merged[k] = union([]any{prev, vm})
+				}
+			case []any:
+				if va, ok := v.([]any); ok {
+					merged[k] = append(append([]any{}, prev...), va...)
+				}
+			}
+		}
+	}
+	if merged != nil {
+		return merged
+	}
+	return first
 }
 
 func idKeyed(m map[string]any) bool {
