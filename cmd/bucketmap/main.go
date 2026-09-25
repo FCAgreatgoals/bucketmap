@@ -78,6 +78,7 @@ func runCmd(args []string) int {
 	allowGlobal := fs.Bool("allow-global-commands", false, "create and delete a global command, seen for a moment by every guild of the bot")
 	out := fs.String("report", filepath.Join("reports", "bucketmap-"+time.Now().Format("2006-01-02-150405")+".json"), "where to write the report (reports/ is ignored by git: a report holds your measured limits)")
 	only := fs.String("only", "", "comma separated groups to run, and those they need ("+strings.Join(engine.Groups(), ", ")+")")
+	bodies := fs.Bool("bodies", false, "keep every request and answer in the report, tokens hidden, for compare -shapes")
 	missing := fs.String("missing", "", "comma separated earlier reports: run only the groups with a route they left unseen or unknown")
 	fs.Parse(args)
 
@@ -101,8 +102,8 @@ func runCmd(args []string) int {
 	}
 
 	r, err := engine.Run(engine.Config{
-		Only: groups,
-		API:  *api, Token: *token, Guild: *guild, Users: splitIDs(*users), Marker: *marker,
+		Only: groups, Bodies: *bodies,
+		API: *api, Token: *token, Guild: *guild, Users: splitIDs(*users), Marker: *marker,
 		Duration: *duration, Agent: "DiscordBot (https://github.com/FCAgreatgoals/bucketmap, " + version + ")",
 		AllowKick: *allowKick, AllowBan: *allowBan, AllowPrune: *allowPrune, AllowGlobalCommands: *allowGlobal,
 	})
@@ -129,21 +130,30 @@ func runCmd(args []string) int {
 }
 
 func compareCmd(args []string) int {
-	if len(args) != 2 {
-		fmt.Fprintln(os.Stderr, "usage: bucketmap compare direct.json candidate.json")
+	fs := flag.NewFlagSet("compare", flag.ExitOnError)
+	shapes := fs.Bool("shapes", false, "also hold every answer to Discord's field by field (both runs made with -bodies)")
+	fs.Parse(args)
+	if fs.NArg() != 2 {
+		fmt.Fprintln(os.Stderr, "usage: bucketmap compare [-shapes] direct.json candidate.json")
 		return 2
 	}
-	direct, err := engine.LoadReport(args[0])
+	direct, err := engine.LoadReport(fs.Arg(0))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 2
 	}
-	candidate, err := engine.LoadReport(args[1])
+	candidate, err := engine.LoadReport(fs.Arg(1))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 2
 	}
-	if engine.Compare(os.Stdout, direct, candidate) {
+	ok := engine.Compare(os.Stdout, direct, candidate)
+	if *shapes {
+		diffs := engine.CompareShapes(direct, candidate)
+		engine.PrintShapes(os.Stdout, diffs)
+		ok = ok && len(diffs) == 0
+	}
+	if ok {
 		return 0
 	}
 	return 1

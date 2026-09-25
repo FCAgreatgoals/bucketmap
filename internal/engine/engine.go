@@ -32,6 +32,9 @@ type Config struct {
 	Duration time.Duration
 	// Agent is sent as User-Agent.
 	Agent string
+	// Bodies keeps each request and answer in the report, tokens hidden, for
+	// a field by field comparison. The report grows to a few megabytes.
+	Bodies bool
 	// Only restricts the run to these groups, and those they need. Empty runs
 	// them all. See Groups.
 	Only []string
@@ -71,7 +74,9 @@ func Run(cfg Config) (*Report, error) {
 	planned := len(dryRun(true, cfg.Only).Results)
 	spacing := cfg.Duration / time.Duration(max(planned, 1))
 	spacing = max(spacing, 250*time.Millisecond)
-	return run(cfg, newClient(cfg.API, strings.TrimPrefix(cfg.Token, "Bot "), cfg.Agent, spacing))
+	c := newClient(cfg.API, strings.TrimPrefix(cfg.Token, "Bot "), cfg.Agent, spacing)
+	c.bodies = cfg.Bodies
+	return run(cfg, c)
 }
 
 func run(cfg Config, c *client) (*Report, error) {

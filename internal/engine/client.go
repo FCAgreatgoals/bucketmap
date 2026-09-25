@@ -36,6 +36,13 @@ type Result struct {
 	// Body is the start of the answer when it is not a success: which error
 	// Discord gave is what a candidate has to reproduce.
 	Body string `json:"body,omitempty"`
+
+	// With Config.Bodies, the exchange itself: the concrete path, what was
+	// sent and what came back, tokens hidden. What a candidate's answers are
+	// held to, field by field.
+	Path     string          `json:"path,omitempty"`
+	Request  json.RawMessage `json:"request,omitempty"`
+	Response json.RawMessage `json:"response,omitempty"`
 }
 
 // bucketState is what the last response of a bucket said about it.
@@ -66,6 +73,9 @@ type client struct {
 
 	// group names the scenario group being run, recorded on each result.
 	group string
+
+	// bodies keeps each exchange in its result.
+	bodies bool
 
 	// lenient ignores answers that do not decode, for a dry run, where every
 	// route answers the same placeholder.
@@ -142,6 +152,11 @@ func (c *client) do(k call, out any) error {
 	r.Status = res.StatusCode
 	if res.StatusCode >= 400 {
 		r.Body = truncate(string(payload), 300)
+	}
+	if c.bodies {
+		r.Path = redact(k.route, k.path)
+		r.Request = recordRequest(k.body)
+		r.Response = recordResponse(res.Header.Get("Content-Type"), payload)
 	}
 	r.LatencyMs = float64(time.Since(start).Microseconds()) / 1000
 	c.observe(&r, res.Header)

@@ -82,6 +82,17 @@ bucketmap compare direct.json proxied.json
 The proxy conforms when every step answered the same and nothing through it hit
 a 429. The same works for anything that stands in for Discord.
 
+To hold the answers themselves to Discord's, run both with `-bodies` and
+compare with `-shapes`: every answer is checked field by field, and fields the
+candidate leaves out, adds, or types differently are listed route by route.
+Recorded bodies never carry a token.
+
+```sh
+bucketmap run -bodies ... -report direct.json
+bucketmap run -bodies -api http://localhost:8080/api/v10 ... -report candidate.json
+bucketmap compare -shapes direct.json candidate.json
+```
+
 ## Running part of the scenario
 
 The scenario is split into groups: `messages`, `reactions`, `pins`,
