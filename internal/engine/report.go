@@ -113,7 +113,15 @@ func modelBuckets(results []Result) []BucketModel {
 			// absorbs the network time folded into the two timestamps.
 			step := (gap + r.ResetAfter) - prev.ResetAfter
 			m.Pairs++
-			if math.Abs(step) <= 0.05*prev.ResetAfter+0.05 {
+			fixed := math.Abs(step) <= 0.05*prev.ResetAfter+0.05
+			if reference > 0 {
+				// With one token's time known, the step is held to both
+				// hypotheses and the nearer wins: a fixed threshold took
+				// 0.303 s of network time on a five second window for a
+				// token.
+				fixed = math.Abs(step) < math.Abs(step-reference)
+			}
+			if fixed {
 				m.Model = "fixed window"
 				continue
 			}

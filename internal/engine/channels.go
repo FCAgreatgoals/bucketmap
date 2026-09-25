@@ -93,7 +93,8 @@ func (s *scenario) exerciseInvites() {
 			if err := s.do("add invite target users in bulk", "POST", route+"/bulk-add", base+"/bulk-add", map[string]any{"user_ids": []string{other}}, nil); err != nil {
 				return err
 			}
-			if err := s.do("read invite targeting job", "GET", route+"/job-status", base+"/job-status", nil, nil); err != nil {
+			// No job left to report answers 404 (10124): the route still ran.
+			if err := s.do("read invite targeting job", "GET", route+"/job-status", base+"/job-status", nil, nil); err != nil && !isStatus(err, 404) {
 				return err
 			}
 			if err := s.do("remove invite target users in bulk", "POST", route+"/bulk-delete", base+"/bulk-delete", map[string]any{"user_ids": []string{other}}, nil); err != nil {

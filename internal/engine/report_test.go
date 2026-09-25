@@ -55,6 +55,13 @@ func TestModelBuckets(t *testing.T) {
 			"fixed window", 40,
 		},
 		{
+			// Real answers of GET /gateway/bot: 0.3 s of network time is not
+			// a token coming back five seconds later.
+			"fixed window with network time",
+			sequence("/h", 2, []float64{0, 0.511}, []float64{5, 4.792}, []int{1, 0}),
+			"fixed window", 5,
+		},
+		{
 			"slow token bucket, requests far apart",
 			sequence("/e", 100, []float64{0, 10}, []float64{30, 50}, []int{99, 98}),
 			"token bucket", 3000,

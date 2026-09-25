@@ -246,10 +246,19 @@ func (c *client) pace(k call, major string) {
 	if id, ok := c.routeBuckets[k.method+" "+k.route+" "+major]; ok {
 		if b := c.buckets[id]; b != nil && b.remaining == 0 {
 			if wait := time.Until(b.resetAt); wait > 0 {
-				time.Sleep(wait)
+				time.Sleep(wait + resetMargin(b.resetAt.Sub(c.last)))
 			}
 		}
 	}
+}
+
+// resetMargin is added to the announced reset before sending into an empty
+// bucket again. Discord does not always honour its own Reset-After to the
+// millisecond: on a bucket of one request announcing five seconds, a request
+// sent 5.001 s later was refused with 0.3 s more to wait. Client libraries
+// add a quarter of a second for the same reason.
+func resetMargin(reset time.Duration) time.Duration {
+	return max(500*time.Millisecond, reset/10)
 }
 
 // observe reads the rate limit headers into the result and the bucket state.

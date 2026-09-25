@@ -828,7 +828,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "gated"
   },
   {
@@ -1042,7 +1042,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1320,7 +1320,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1372,7 +1372,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1414,7 +1414,7 @@
     "model": "unknown",
     "coverage": "exercised",
     "notes": [
-      "Answers 404 on Discord today: the route appears to be gone, replaced by GET /guilds/{guild_id}/threads/active."
+      "Answers 404 (code 0) on Discord today: the route is gone, replaced by GET /guilds/{guild_id}/threads/active."
     ]
   },
   {
@@ -1453,7 +1453,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1616,7 +1616,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1668,7 +1668,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1707,7 +1707,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1733,7 +1733,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2080,7 +2080,10 @@
     "major": "guild_id",
     "global": true,
     "model": "unknown",
-    "coverage": "gated"
+    "coverage": "gated",
+    "notes": [
+      "Answers 404 Unknown Guild Member Verification Form (10068) until one is set."
+    ]
   },
   {
     "method": "PATCH",
@@ -2163,7 +2166,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2176,7 +2179,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "gated"
   },
   {
@@ -2189,7 +2192,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2265,7 +2268,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised",
     "notes": [
       "Answers 202 with a retry_after in its body while the guild's search index is being built."
@@ -2313,7 +2316,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {
@@ -2352,7 +2355,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2423,7 +2426,7 @@
     "model": "unknown",
     "coverage": "exercised",
     "notes": [
-      "Answers 403 on a guild without member applications."
+      "Answered 403 \"This feature has been temporarily disabled\" (40006) in September 2026."
     ]
   },
   {
@@ -2491,7 +2494,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2583,7 +2586,10 @@
     "major": "guild_id",
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Waiting the announced Reset-After is not always enough: on this one request bucket, a request sent 5.001 s after a Reset-After of 5 was refused, with 0.3 s more to wait."
+    ]
   },
   {
     "method": "PATCH",
@@ -2635,7 +2641,10 @@
     "major": "guild_id",
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "An exception must change a field of the series: one that only sets is_canceled back to false is refused (400, 180005)."
+    ]
   },
   {
     "method": "GET",
@@ -2647,7 +2656,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2673,7 +2682,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2894,7 +2903,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2910,7 +2919,7 @@
     "model": "global_only",
     "coverage": "exercised",
     "notes": [
-      "Answers 403 on a guild without a vanity URL feature."
+      "Answers 403 Missing Access (50001) on a guild without a vanity URL."
     ]
   },
   {
@@ -2936,7 +2945,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "gated"
   },
   {
@@ -2988,8 +2997,11 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
-    "coverage": "gated"
+    "model": "global_only",
+    "coverage": "gated",
+    "notes": [
+      "Answers 404 Unknown Guild Welcome Screen (10069) until one is set."
+    ]
   },
   {
     "method": "PATCH",
@@ -3123,7 +3135,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -3172,7 +3184,10 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Answers 404 Unknown invite target users job (10124) when no job is running."
+    ]
   },
   {
     "method": "DELETE",
@@ -3693,7 +3708,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "gated"
   },
   {
@@ -3743,7 +3758,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4192,7 +4207,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4206,7 +4221,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4220,7 +4235,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4234,7 +4249,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "family": "webhook_messages",
     "coverage": "exercised",
     "notes": [
@@ -4325,7 +4340,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4339,7 +4354,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -4353,7 +4368,7 @@
     ],
     "major": "webhook_id+webhook_token",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {

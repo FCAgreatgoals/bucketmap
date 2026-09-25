@@ -95,6 +95,12 @@ func (s *scenario) communityOnly(name string, fn func() error) {
 	})
 }
 
+// isStatus reports whether err is an answer with that status.
+func isStatus(err error, status int) bool {
+	var se *statusError
+	return errors.As(err, &se) && se.status == status
+}
+
 func (s *scenario) need(values ...string) error {
 	for _, v := range values {
 		if v == "" {

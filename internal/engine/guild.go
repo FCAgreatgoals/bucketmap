@@ -405,7 +405,12 @@ func (s *scenario) exerciseEvents() {
 		if err := s.do("list users of an occurrence", "GET", one+"/{guild_scheduled_event_exception_id}/users", base+"/"+weekly.ID+"/"+exception.EventExceptionID+"/users", nil, nil); err != nil {
 			return err
 		}
-		if err := s.do("restore the occurrence", "PATCH", exceptions+"/{exception_id}", ex, map[string]any{"is_canceled": false}, nil); err != nil {
+		// An exception must change a field of the series (180005 otherwise):
+		// the occurrence is restored half an hour later than planned.
+		moved := start.Add(7*24*time.Hour + 30*time.Minute)
+		if err := s.do("restore the occurrence, moved", "PATCH", exceptions+"/{exception_id}", ex, map[string]any{
+			"is_canceled": false, "scheduled_start_time": moved.Format(time.RFC3339), "scheduled_end_time": moved.Add(time.Hour).Format(time.RFC3339),
+		}, nil); err != nil {
 			return err
 		}
 		return s.do("drop the exception", "DELETE", exceptions+"/{exception_id}", ex, nil, nil)
@@ -444,21 +449,30 @@ func (s *scenario) exerciseTemplates() {
 func (s *scenario) exerciseCommunity() {
 	g := s.g()
 	var welcome map[string]any
+	// A guild that never set a welcome screen or a screening form answers 404
+	// (10069, 10068): the edit then sets a disabled one, which changes
+	// nothing members see.
 	s.communityOnly("welcome screen", func() error {
-		if err := s.do("read welcome screen", "GET", "/guilds/{guild_id}/welcome-screen", g+"/welcome-screen", nil, &welcome); err != nil {
+		body := map[string]any{"enabled": false}
+		if err := s.do("read welcome screen", "GET", "/guilds/{guild_id}/welcome-screen", g+"/welcome-screen", nil, &welcome); err == nil {
+			body = map[string]any{"description": welcome["description"]}
+		} else if !isStatus(err, 404) {
 			return err
 		}
-		return s.do("edit welcome screen", "PATCH", "/guilds/{guild_id}/welcome-screen", g+"/welcome-screen", map[string]any{"description": welcome["description"]}, nil)
+		return s.do("edit welcome screen", "PATCH", "/guilds/{guild_id}/welcome-screen", g+"/welcome-screen", body, nil)
 	})
 	s.communityOnly("read new member welcome", func() error {
 		return s.do("read new member welcome", "GET", "/guilds/{guild_id}/new-member-welcome", g+"/new-member-welcome", nil, nil)
 	})
 	s.communityOnly("membership screening", func() error {
 		var form map[string]any
-		if err := s.do("read membership screening", "GET", "/guilds/{guild_id}/member-verification", g+"/member-verification", nil, &form); err != nil {
+		body := map[string]any{"enabled": false}
+		if err := s.do("read membership screening", "GET", "/guilds/{guild_id}/member-verification", g+"/member-verification", nil, &form); err == nil {
+			body = map[string]any{"description": form["description"]}
+		} else if !isStatus(err, 404) {
 			return err
 		}
-		return s.do("edit membership screening", "PATCH", "/guilds/{guild_id}/member-verification", g+"/member-verification", map[string]any{"description": form["description"]}, nil)
+		return s.do("edit membership screening", "PATCH", "/guilds/{guild_id}/member-verification", g+"/member-verification", body, nil)
 	})
 	s.communityOnly("rewrite onboarding as it is", func() error {
 		var onboarding map[string]any
