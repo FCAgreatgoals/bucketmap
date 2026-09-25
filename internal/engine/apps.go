@@ -63,7 +63,7 @@ func (s *scenario) exerciseApplication() {
 		}
 		s.appEmoji = e.ID
 		var twin object
-		err := s.twin("create application emoji", list, s.app()+"/emojis", body, "_2", &twin)
+		err := s.twin("create application emoji", list, s.app()+"/emojis", body, "_twin", &twin)
 		s.appEmoji2 = twin.ID
 		return err
 	})
@@ -101,7 +101,7 @@ func (s *scenario) exerciseCommands() {
 		if err := s.do("create guild command", "POST", list, base, body, &cmd); err != nil {
 			return err
 		}
-		return s.twin("create guild command", list, base, body, "-2", &cmd2)
+		return s.twin("create guild command", list, base, body, "-twin", &cmd2)
 	})
 	s.step("read guild command", func() error {
 		if err := s.need(cmd.ID); err != nil {
@@ -178,7 +178,7 @@ func (s *scenario) exerciseCommands() {
 			if err := s.do("create global command", "POST", global, s.app()+"/commands", body, &g); err != nil {
 				return err
 			}
-			if err := s.twin("create global command", global, s.app()+"/commands", body, "-2", &g2); err == nil && g2.ID != "" {
+			if err := s.twin("create global command", global, s.app()+"/commands", body, "-twin", &g2); err == nil && g2.ID != "" {
 				defer s.dropTwin("delete global command", global+"/{command_id}", s.app()+"/commands/"+g2.ID)
 			}
 			if err := s.do("edit global command", "PATCH", global+"/{command_id}", s.app()+"/commands/"+g.ID, map[string]any{"description": "bucketmap test command, edited"}, nil); err != nil {

@@ -154,7 +154,10 @@ func repeatable(method, route string, body any) bool {
 		// POSTs that create nothing, or nothing a second one would clash with.
 		return repeatablePosts[route]
 	case "PUT", "PATCH":
-		if strings.Contains(route, "/exceptions/") {
+		// Event exceptions refuse the same value twice, and a target users
+		// file is processed in the background: a second one is refused
+		// while the first runs.
+		if strings.Contains(route, "/exceptions/") || route == "/invites/{code}/target-users" {
 			return false
 		}
 		if route == "/channels/{channel_id}" {

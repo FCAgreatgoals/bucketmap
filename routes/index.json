@@ -383,7 +383,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -397,7 +397,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -425,7 +425,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -453,7 +453,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -702,7 +702,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -744,7 +744,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -799,7 +799,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -854,7 +854,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -935,7 +935,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -948,7 +948,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -990,7 +990,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1175,7 +1175,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised",
     "notes": [
       "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
@@ -1191,7 +1191,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised",
     "notes": [
       "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
@@ -1466,7 +1466,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1492,7 +1492,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1642,7 +1642,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1681,7 +1681,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1694,7 +1694,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1720,7 +1720,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -1976,7 +1976,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised",
     "notes": [
       "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
@@ -2008,7 +2008,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised",
     "notes": [
       "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
@@ -2079,7 +2079,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated",
     "notes": [
       "Answers 404 Unknown Guild Member Verification Form (10068) until one is set."
@@ -2095,7 +2095,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "gated"
   },
   {
@@ -2121,7 +2121,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised",
     "notes": [
       "Answers 202 with a retry_after in its body while the guild's search index is being built."
@@ -2342,7 +2342,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {
@@ -2507,7 +2507,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2601,7 +2601,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2640,7 +2640,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised",
     "notes": [
       "An exception must change a field of the series: one that only sets is_canceled back to false is refused (400, 180005)."
@@ -2786,7 +2786,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2812,7 +2812,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2838,7 +2838,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2851,7 +2851,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2864,7 +2864,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2877,7 +2877,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -3013,7 +3013,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "gated"
   },
   {
@@ -3095,7 +3095,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -3147,7 +3147,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -3210,7 +3210,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -3695,7 +3695,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {
@@ -3721,7 +3721,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {

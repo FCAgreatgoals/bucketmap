@@ -49,6 +49,8 @@ type Result struct {
 type bucketState struct {
 	remaining int
 	resetAt   time.Time
+	// window is the Reset-After of the last answer, which sizes the margin.
+	window time.Duration
 }
 
 // client sends the scenario's requests one at a time, paced well below every
@@ -261,8 +263,11 @@ func (c *client) pace(k call, major string) {
 	}
 	if id, ok := c.routeBuckets[k.method+" "+k.route+" "+major]; ok {
 		if b := c.buckets[id]; b != nil && b.remaining == 0 {
-			if wait := time.Until(b.resetAt); wait > 0 {
-				time.Sleep(wait + resetMargin(b.resetAt.Sub(c.last)))
+			// The margin holds even when the answer took the whole reset to
+			// come back: a quarter second bucket was sent into again 0.26 s
+			// after its first request, and refused.
+			if wait := time.Until(b.resetAt.Add(resetMargin(b.window))); wait > 0 {
+				time.Sleep(wait)
 			}
 		}
 	}
@@ -308,7 +313,8 @@ func (c *client) observe(r *Result, h http.Header) {
 	if r.Status == http.StatusTooManyRequests {
 		b.remaining = 0
 	}
-	b.resetAt = r.At.Add(time.Duration(r.ResetAfter * float64(time.Second)))
+	b.window = time.Duration(r.ResetAfter * float64(time.Second))
+	b.resetAt = r.At.Add(b.window)
 }
 
 // majorOf extracts the major parameter from a path, given its template: the

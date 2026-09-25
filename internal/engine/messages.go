@@ -278,7 +278,7 @@ func (s *scenario) exerciseThreads() {
 		var withTwin struct {
 			AvailableTags []object `json:"available_tags"`
 		}
-		if err := s.twin("create forum tag", "/channels/{channel_id}/tags", base, body, "-2", &withTwin); err != nil {
+		if err := s.twin("create forum tag", "/channels/{channel_id}/tags", base, body, "-twin", &withTwin); err != nil {
 			return err
 		}
 		if n := len(withTwin.AvailableTags); n > 0 {

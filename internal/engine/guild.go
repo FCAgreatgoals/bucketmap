@@ -213,7 +213,7 @@ func (s *scenario) exerciseAutomod() {
 		if err := s.do("create automod rule", "POST", "/guilds/{guild_id}/auto-moderation/rules", base, body, &rule); err != nil {
 			return err
 		}
-		return s.twin("create automod rule", "/guilds/{guild_id}/auto-moderation/rules", base, body, "-2", &rule2)
+		return s.twin("create automod rule", "/guilds/{guild_id}/auto-moderation/rules", base, body, "-twin", &rule2)
 	})
 	s.step("list automod rules", func() error {
 		return s.do("list automod rules", "GET", "/guilds/{guild_id}/auto-moderation/rules", base, nil, nil)
