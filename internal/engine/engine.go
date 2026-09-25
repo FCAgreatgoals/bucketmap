@@ -32,6 +32,9 @@ type Config struct {
 	Duration time.Duration
 	// Agent is sent as User-Agent.
 	Agent string
+	// Only restricts the run to these groups, and those they need. Empty runs
+	// them all. See Groups.
+	Only []string
 
 	// AllowKick kicks test user 3, who then has to rejoin.
 	AllowKick bool
@@ -55,7 +58,8 @@ func (c Config) validate() error {
 	case c.Marker == "":
 		return errors.New("the marker cannot be empty: it is what keeps the run off a real guild")
 	}
-	return nil
+	_, err := selected(c.Only)
+	return err
 }
 
 // Run walks the scenario and returns its report. An error means the run could
@@ -64,7 +68,7 @@ func Run(cfg Config) (*Report, error) {
 	if err := cfg.validate(); err != nil {
 		return nil, err
 	}
-	planned := len(DryRun(true).Results)
+	planned := len(dryRun(true, cfg.Only).Results)
 	spacing := cfg.Duration / time.Duration(max(planned, 1))
 	spacing = max(spacing, 250*time.Millisecond)
 	return run(cfg, newClient(cfg.API, strings.TrimPrefix(cfg.Token, "Bot "), cfg.Agent, spacing))
@@ -91,7 +95,9 @@ func run(cfg Config, c *client) (*Report, error) {
 // on and the guild is a community guild; without, neither. It is how the index
 // knows which routes the scenario covers, and how a run knows how many
 // requests to spread over its duration.
-func DryRun(full bool) *Report {
+func DryRun(full bool) *Report { return dryRun(full, nil) }
+
+func dryRun(full bool, only []string) *Report {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { respond(w, r, full) }))
 	defer srv.Close()
 
@@ -100,6 +106,7 @@ func DryRun(full bool) *Report {
 		Users:     []string{"1001", "1002", "1003", "1004"},
 		Agent:     "bucketmap dry run",
 		AllowKick: full, AllowBan: full, AllowPrune: full, AllowGlobalCommands: full,
+		Only: only,
 	}
 	c := newClient(srv.URL, cfg.Token, cfg.Agent, 0)
 	c.lenient = true

@@ -88,6 +88,23 @@ func (s *scenario) exerciseInvites() {
 		if err := s.do("list invite target users", "GET", route, base, nil, nil); err != nil {
 			return err
 		}
+		if len(s.cfg.Users) > 1 {
+			other := s.cfg.Users[1]
+			if err := s.do("add invite target users in bulk", "POST", route+"/bulk-add", base+"/bulk-add", map[string]any{"user_ids": []string{other}}, nil); err != nil {
+				return err
+			}
+			if err := s.do("read invite targeting job", "GET", route+"/job-status", base+"/job-status", nil, nil); err != nil {
+				return err
+			}
+			if err := s.do("remove invite target users in bulk", "POST", route+"/bulk-delete", base+"/bulk-delete", map[string]any{"user_ids": []string{other}}, nil); err != nil {
+				return err
+			}
+		}
+		// The whole list at once, as the CSV file Discord takes.
+		csv := multipartBody{files: []file{{field: "target_users_file", name: "targets.csv", contentType: "text/csv", data: []byte("user_id\n" + user + "\n")}}}
+		if err := s.do("replace invite target users from a file", "PUT", route, base, csv, nil); err != nil {
+			return err
+		}
 		return s.do("remove invite target user", "DELETE", route+"/{user_id}", base+"/"+user, nil, nil)
 	})
 	s.step("delete invite", func() error {

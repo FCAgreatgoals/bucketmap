@@ -73,3 +73,21 @@ func TestModelBuckets(t *testing.T) {
 		}
 	}
 }
+
+// A route Discord does not limit on its own answers a limit of a thousand that
+// resets within a millisecond.
+func TestModelBucketsRecognisesGlobalOnlyRoutes(t *testing.T) {
+	got := modelBuckets(sequence("/f", 1000, []float64{0, 0.2}, []float64{0.001, 0.001}, []int{999, 999}))
+	if len(got) != 1 || got[0].Model != "global only" {
+		t.Fatalf("got %+v, want one global only bucket", got)
+	}
+}
+
+// A single request that opened a bucket says how long until it comes back,
+// not whether the bucket is a window or a token bucket.
+func TestModelBucketsKeepsWhatIsSureOfAnUnknownBucket(t *testing.T) {
+	got := modelBuckets(sequence("/g", 1000, []float64{0}, []float64{86.4}, []int{999}))
+	if len(got) != 1 || got[0].Model != "unknown" || got[0].FirstBackSeconds != 86.4 {
+		t.Fatalf("got %+v", got)
+	}
+}

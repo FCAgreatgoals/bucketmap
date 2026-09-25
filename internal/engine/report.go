@@ -29,13 +29,27 @@ type BucketModel struct {
 	Bucket string   `json:"bucket"`
 	Routes []string `json:"routes"`
 	Limit  int      `json:"limit"`
-	// Model is "token bucket", "fixed window", or "unknown" when no two
-	// requests of the run fell within one window of each other.
+	// Model is "token bucket", "fixed window", "global only" for a route
+	// Discord does not limit on its own, or "unknown" when no two requests of
+	// the run fell within one window of each other.
 	Model string `json:"model"`
-	// WindowSeconds is the time the bucket takes to refill fully.
+	// WindowSeconds is the time the bucket takes to refill fully, when the
+	// model is known. For an unknown model it is only what is sure: an upper
+	// bound for a fixed window, one token's time for a token bucket.
 	WindowSeconds float64 `json:"window_seconds"`
-	Pairs         int     `json:"pairs"`
+	// FirstBackSeconds is the Reset-After of a request that opened the
+	// bucket: the whole window of a fixed window, one token of a token
+	// bucket. Zero when no request of the run opened it.
+	FirstBackSeconds float64 `json:"first_back_seconds,omitempty"`
+	Pairs            int     `json:"pairs"`
 }
+
+// A route Discord does not limit on its own answers a limit this large and a
+// reset this short: only the global limit holds it back.
+const (
+	globalOnlyLimit = 1000
+	globalOnlyReset = 0.01
+)
 
 // modelBuckets classifies each bucket from consecutive requests on it.
 //
@@ -111,6 +125,19 @@ func modelBuckets(results []Result) []BucketModel {
 			m.WindowSeconds = perToken * float64(m.Limit)
 		}
 
+		m.FirstBackSeconds = math.Max(m.FirstBackSeconds, reference)
+		globalOnly := len(rs) > 0
+		for _, r := range rs {
+			if r.Limit < globalOnlyLimit || r.ResetAfter > globalOnlyReset {
+				globalOnly = false
+			}
+		}
+		if globalOnly && m.Model == "unknown" {
+			m.Model = "global only"
+			m.WindowSeconds = 0
+			continue
+		}
+
 		if m.Model != "token bucket" {
 			window := reference
 			if window == 0 {
@@ -163,7 +190,22 @@ func (r *Report) Print(w io.Writer) {
 		if len(b.Routes) > 1 {
 			shared = fmt.Sprintf("  shared by %d routes", len(b.Routes))
 		}
-		fmt.Fprintf(w, "  %-12s %4d per %-9s %s%s\n", b.Model, b.Limit, humanSeconds(b.WindowSeconds), b.Routes[0], shared)
+		var limit string
+		switch b.Model {
+		case "global only":
+			limit = "no limit of its own"
+		case "unknown":
+			// Only what is sure: without two requests in a row, a window
+			// and a token look the same.
+			if b.FirstBackSeconds > 0 {
+				limit = fmt.Sprintf("%d, first back in %s", b.Limit, humanSeconds(b.FirstBackSeconds))
+			} else {
+				limit = fmt.Sprintf("%d, full within %s", b.Limit, humanSeconds(b.WindowSeconds))
+			}
+		default:
+			limit = fmt.Sprintf("%d per %s", b.Limit, humanSeconds(b.WindowSeconds))
+		}
+		fmt.Fprintf(w, "  %-12s %-28s %s%s\n", b.Model, limit, b.Routes[0], shared)
 	}
 
 	if tm := r.TooMany(); len(tm) > 0 {

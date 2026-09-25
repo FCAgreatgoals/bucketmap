@@ -19,6 +19,7 @@ import (
 // Result is one request as it happened.
 type Result struct {
 	Step       string    `json:"step"`
+	Group      string    `json:"group,omitempty"`
 	Method     string    `json:"method"`
 	Route      string    `json:"route"`
 	Major      string    `json:"major,omitempty"`
@@ -32,6 +33,9 @@ type Result struct {
 	Scope      string    `json:"scope,omitempty"`
 	Global     bool      `json:"global,omitempty"`
 	Error      string    `json:"error,omitempty"`
+	// Body is the start of the answer when it is not a success: which error
+	// Discord gave is what a candidate has to reproduce.
+	Body string `json:"body,omitempty"`
 }
 
 // bucketState is what the last response of a bucket said about it.
@@ -59,6 +63,9 @@ type client struct {
 	// last reported for it, so that routes sharing a bucket share its state.
 	routeBuckets map[string]string
 	buckets      map[string]*bucketState
+
+	// group names the scenario group being run, recorded on each result.
+	group string
 
 	// lenient ignores answers that do not decode, for a dry run, where every
 	// route answers the same placeholder.
@@ -123,7 +130,7 @@ func (c *client) do(k call, out any) error {
 	start := time.Now()
 	res, err := c.http.Do(req)
 	c.last = time.Now()
-	r := Result{Step: k.step, Method: k.method, Route: k.route, Major: major, At: start}
+	r := Result{Step: k.step, Group: c.group, Method: k.method, Route: k.route, Major: major, At: start}
 	if err != nil {
 		r.Error = err.Error()
 		c.results = append(c.results, r)
@@ -133,6 +140,9 @@ func (c *client) do(k call, out any) error {
 	payload, _ := io.ReadAll(res.Body)
 
 	r.Status = res.StatusCode
+	if res.StatusCode >= 400 {
+		r.Body = truncate(string(payload), 300)
+	}
 	r.LatencyMs = float64(time.Since(start).Microseconds()) / 1000
 	c.observe(&r, res.Header)
 	c.results = append(c.results, r)

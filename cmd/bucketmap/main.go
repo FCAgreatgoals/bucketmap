@@ -35,6 +35,10 @@ func main() {
 		os.Exit(runCmd(os.Args[2:]))
 	case "compare":
 		os.Exit(compareCmd(os.Args[2:]))
+	case "merge":
+		os.Exit(mergeCmd(os.Args[2:]))
+	case "learn":
+		os.Exit(learnCmd(os.Args[2:]))
 	case "coverage":
 		os.Exit(coverageCmd())
 	case "index":
@@ -50,6 +54,8 @@ func usage() {
 	fmt.Fprint(os.Stderr, `usage:
   bucketmap run       walk a test guild through every route and report
   bucketmap compare   put a run against Discord and a run against a candidate side by side
+  bucketmap merge     combine the reports of several runs into one
+  bucketmap learn     record in the annotations the bucket models runs settled
   bucketmap coverage  list which routes the scenario exercises
   bucketmap index     rebuild routes/index.json
   bucketmap version
@@ -70,10 +76,32 @@ func runCmd(args []string) int {
 	allowPrune := fs.Bool("allow-prune", false, "prune members inactive for thirty days who hold no role")
 	allowGlobal := fs.Bool("allow-global-commands", false, "create and delete a global command, seen for a moment by every guild of the bot")
 	out := fs.String("report", "bucketmap.json", "where to write the report")
+	only := fs.String("only", "", "comma separated groups to run, and those they need ("+strings.Join(engine.Groups(), ", ")+")")
+	missing := fs.String("missing", "", "comma separated earlier reports: run only the groups with a route they left unseen or unknown")
 	fs.Parse(args)
 
+	groups := splitIDs(*only)
+	if *missing != "" {
+		var earlier []*engine.Report
+		for _, path := range splitIDs(*missing) {
+			r, err := engine.LoadReport(path)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "bucketmap:", err)
+				return 2
+			}
+			earlier = append(earlier, r)
+		}
+		groups = append(groups, engine.Missing(earlier...)...)
+		if len(groups) == 0 {
+			fmt.Println("nothing left to learn: every route of the scenario is known")
+			return 0
+		}
+		fmt.Printf("running %s\n", strings.Join(groups, ", "))
+	}
+
 	r, err := engine.Run(engine.Config{
-		API: *api, Token: *token, Guild: *guild, Users: splitIDs(*users), Marker: *marker,
+		Only: groups,
+		API:  *api, Token: *token, Guild: *guild, Users: splitIDs(*users), Marker: *marker,
 		Duration: *duration, Agent: "DiscordBot (https://github.com/FCAgreatgoals/bucketmap, " + version + ")",
 		AllowKick: *allowKick, AllowBan: *allowBan, AllowPrune: *allowPrune, AllowGlobalCommands: *allowGlobal,
 	})
@@ -112,6 +140,69 @@ func compareCmd(args []string) int {
 		return 0
 	}
 	return 1
+}
+
+func mergeCmd(args []string) int {
+	fs := flag.NewFlagSet("merge", flag.ExitOnError)
+	out := fs.String("report", "merged.json", "where to write the merged report")
+	fs.Parse(args)
+	if fs.NArg() < 2 {
+		fmt.Fprintln(os.Stderr, "usage: bucketmap merge -report merged.json run1.json run2.json ...")
+		return 2
+	}
+	var reports []*engine.Report
+	for _, path := range fs.Args() {
+		r, err := engine.LoadReport(path)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return 2
+		}
+		reports = append(reports, r)
+	}
+	merged := engine.Merge(reports...)
+	raw, err := json.MarshalIndent(merged, "", "  ")
+	if err == nil {
+		err = os.WriteFile(*out, raw, 0o644)
+	}
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 2
+	}
+	merged.Print(os.Stdout)
+	return 0
+}
+
+func learnCmd(args []string) int {
+	fs := flag.NewFlagSet("learn", flag.ExitOnError)
+	ann := fs.String("annotations", "routes/annotations.json", "hand-written annotations, updated in place")
+	fs.Parse(args)
+	if fs.NArg() == 0 {
+		fmt.Fprintln(os.Stderr, "usage: bucketmap learn report.json ...")
+		return 2
+	}
+	var reports []*engine.Report
+	for _, path := range fs.Args() {
+		r, err := engine.LoadReport(path)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return 2
+		}
+		reports = append(reports, r)
+	}
+	changes, err := indexgen.Learn(*ann, reports...)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "bucketmap:", err)
+		return 1
+	}
+	for _, c := range changes {
+		from := string(c.From)
+		if from == "" {
+			from = "unknown"
+		}
+		fmt.Printf("  %-70s %s -> %s\n", c.Route, from, c.To)
+	}
+	fmt.Printf("%d models learned; rebuild the index with bucketmap index\n", len(changes))
+	return 0
 }
 
 func coverageCmd() int {

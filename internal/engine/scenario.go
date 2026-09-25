@@ -104,15 +104,24 @@ func (s *scenario) need(values ...string) error {
 	return nil
 }
 
+// do sends one request. A read that succeeds is sent a second time at once:
+// two requests in a row on one bucket are what tells its model, and reading
+// twice changes nothing.
 func (s *scenario) do(step, method, route, path string, body, out any) error {
-	return s.c.do(call{step: step, method: method, route: route, path: path, body: body}, out)
+	if err := s.c.do(call{step: step, method: method, route: route, path: path, body: body}, out); err != nil {
+		return err
+	}
+	if method != "GET" {
+		return nil
+	}
+	return s.c.do(call{step: step + " (again)", method: method, route: route, path: path, immediate: true}, nil)
 }
 
 // pair sends the same request twice in a row, the second without spacing.
 // Two consecutive requests on one bucket are what tells a token bucket from a
 // fixed window, and two requests stay far below any limit.
 func (s *scenario) pair(step, method, route, path string, body any) error {
-	if err := s.do(step+" (1/2)", method, route, path, body, nil); err != nil {
+	if err := s.c.do(call{step: step + " (1/2)", method: method, route: route, path: path, body: body}, nil); err != nil {
 		return err
 	}
 	return s.c.do(call{step: step + " (2/2)", method: method, route: route, path: path, body: body, immediate: true}, nil)
@@ -120,38 +129,114 @@ func (s *scenario) pair(step, method, route, path string, body any) error {
 
 func (s *scenario) g() string { return "/guilds/" + s.cfg.Guild }
 
+// group is a set of steps that can run on its own, after the preflight and
+// the setup, as long as the groups it needs run too.
+type group struct {
+	name  string
+	needs []string
+	run   func(*scenario)
+}
+
+// groups is the scenario, in the order it runs.
+var groups = []group{
+	{"messages", nil, (*scenario).exerciseMessages},
+	{"reactions", []string{"messages"}, (*scenario).exerciseReactions},
+	{"pins", []string{"messages"}, (*scenario).exercisePins},
+	{"threads", []string{"messages"}, (*scenario).exerciseThreads},
+	{"attachments", nil, (*scenario).exerciseAttachments},
+	{"polls", nil, (*scenario).exercisePolls},
+	{"channel", nil, (*scenario).exerciseChannel},
+	{"invites", nil, (*scenario).exerciseInvites},
+	{"webhooks", nil, (*scenario).exerciseWebhooks},
+	{"guild", nil, (*scenario).exerciseGuild},
+	{"guild-reads", nil, (*scenario).exerciseGuildReads},
+	{"roles", nil, (*scenario).exerciseRoles},
+	{"members", nil, (*scenario).exerciseMembers},
+	{"automod", nil, (*scenario).exerciseAutomod},
+	{"emojis", nil, (*scenario).exerciseEmojis},
+	{"stickers", nil, (*scenario).exerciseStickers},
+	{"soundboard", nil, (*scenario).exerciseSoundboard},
+	{"events", nil, (*scenario).exerciseEvents},
+	{"templates", nil, (*scenario).exerciseTemplates},
+	{"community", nil, (*scenario).exerciseCommunity},
+	{"application", nil, (*scenario).exerciseApplication},
+	{"commands", nil, (*scenario).exerciseCommands},
+	{"users", nil, (*scenario).exerciseUsers},
+	{"public", nil, (*scenario).exercisePublic},
+	{"moderation", nil, (*scenario).moderate},
+}
+
+// Groups lists the names a run can be restricted to.
+func Groups() []string {
+	out := make([]string, len(groups))
+	for i, g := range groups {
+		out[i] = g.name
+	}
+	return out
+}
+
+// selected resolves the groups to run: every group when only is empty,
+// otherwise those named and the groups they need.
+func selected(only []string) (map[string]bool, error) {
+	if len(only) == 0 {
+		all := map[string]bool{}
+		for _, g := range groups {
+			all[g.name] = true
+		}
+		return all, nil
+	}
+	byName := map[string]group{}
+	for _, g := range groups {
+		byName[g.name] = g
+	}
+	out := map[string]bool{}
+	var add func(name string) error
+	add = func(name string) error {
+		g, ok := byName[name]
+		if !ok {
+			return fmt.Errorf("unknown group %q, known groups: %s", name, strings.Join(Groups(), ", "))
+		}
+		if out[name] {
+			return nil
+		}
+		out[name] = true
+		for _, n := range g.needs {
+			if err := add(n); err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+	for _, name := range only {
+		if err := add(name); err != nil {
+			return nil, err
+		}
+	}
+	return out, nil
+}
+
 func (s *scenario) run() error {
+	run, err := selected(s.cfg.Only)
+	if err != nil {
+		return err
+	}
+	s.c.group = "preflight"
 	if err := s.preflight(); err != nil {
 		return err
 	}
-	defer s.cleanup()
+	defer func() {
+		s.c.group = "cleanup"
+		s.cleanup()
+	}()
 
+	s.c.group = "setup"
 	s.setup()
-	s.exerciseMessages()
-	s.exerciseReactions()
-	s.exercisePins()
-	s.exerciseThreads()
-	s.exerciseAttachments()
-	s.exercisePolls()
-	s.exerciseChannel()
-	s.exerciseInvites()
-	s.exerciseWebhooks()
-	s.exerciseGuild()
-	s.exerciseGuildReads()
-	s.exerciseRoles()
-	s.exerciseMembers()
-	s.exerciseAutomod()
-	s.exerciseEmojis()
-	s.exerciseStickers()
-	s.exerciseSoundboard()
-	s.exerciseEvents()
-	s.exerciseTemplates()
-	s.exerciseCommunity()
-	s.exerciseApplication()
-	s.exerciseCommands()
-	s.exerciseUsers()
-	s.exercisePublic()
-	s.moderate()
+	for _, g := range groups {
+		if run[g.name] {
+			s.c.group = g.name
+			g.run(s)
+		}
+	}
 	return nil
 }
 

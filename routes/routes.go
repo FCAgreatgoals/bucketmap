@@ -26,6 +26,10 @@ const (
 	// FixedWindow refills all at once, when the window ends: the instant
 	// X-RateLimit-Reset-After points to stays put across requests.
 	FixedWindow Model = "fixed_window"
+	// GlobalOnly is a route Discord does not limit on its own: it answers a
+	// limit of a thousand that resets within milliseconds, and only the
+	// global limit holds it back.
+	GlobalOnly Model = "global_only"
 	// Unknown is a route no run has seen two requests of within one window.
 	Unknown Model = "unknown"
 )
