@@ -44,7 +44,9 @@ type scenario struct {
 	stickers []string
 	events   []string
 	appEmoji string
-	template string
+	// appEmoji2 is the twin of appEmoji, created and deleted right after it.
+	appEmoji2 string
+	template  string
 
 	failures []string
 	skipped  []string
@@ -130,7 +132,13 @@ func (s *scenario) do(step, method, route, path string, body, out any) error {
 	if !repeatable(method, route, body) {
 		return nil
 	}
-	return s.c.do(call{step: step + " (again)", method: method, route: route, path: path, body: body, immediate: true}, nil)
+	err := s.c.do(call{step: step + " (again)", method: method, route: route, path: path, body: body, immediate: true}, nil)
+	// The second delete finds nothing left: its 404 still carries the
+	// bucket's headers, and Discord does not count it as invalid.
+	if method == "DELETE" && isStatus(err, 404) {
+		return nil
+	}
+	return err
 }
 
 // repeatable says whether a request can be sent again at once without
@@ -140,8 +148,11 @@ func (s *scenario) do(step, method, route, path string, body, out any) error {
 // to the same value.
 func repeatable(method, route string, body any) bool {
 	switch method {
-	case "GET":
+	case "GET", "DELETE":
 		return true
+	case "POST":
+		// POSTs that create nothing, or nothing a second one would clash with.
+		return repeatablePosts[route]
 	case "PUT", "PATCH":
 		if strings.Contains(route, "/exceptions/") {
 			return false
@@ -159,6 +170,40 @@ func repeatable(method, route string, body any) bool {
 		return true
 	}
 	return false
+}
+
+// repeatablePosts are POSTs that can be sent again at once: they create
+// nothing, or something the run drops anyway.
+var repeatablePosts = map[string]bool{
+	"/channels/{channel_id}/typing":            true,
+	"/guilds/{guild_id}/members-search":        true,
+	"/attachments/refresh-urls":                true,
+	"/users/@me/channels":                      true,
+	"/channels/{channel_id}/attachments":       true,
+	"/invites/{code}/target-users/bulk-add":    true,
+	"/invites/{code}/target-users/bulk-delete": true,
+	"/guilds/{guild_id}/prune":                 true,
+}
+
+// twin sends a second create at once, its name suffixed so that it does not
+// replace the first: two creates in a row settle the bucket's model. The run
+// deletes the twin right after the original.
+func (s *scenario) twin(step, route, path string, body map[string]any, suffix string, out any) error {
+	cp := make(map[string]any, len(body))
+	for k, v := range body {
+		cp[k] = v
+	}
+	if name, ok := cp["name"].(string); ok {
+		cp["name"] = name + suffix
+	}
+	return s.c.do(call{step: step + " (twin)", method: "POST", route: route, path: path, body: cp, immediate: true}, out)
+}
+
+// dropTwin deletes a twin right after its original.
+func (s *scenario) dropTwin(step, route, path string) {
+	if err := s.c.do(call{step: step + " (twin)", method: "DELETE", route: route, path: path, immediate: true}, nil); err != nil {
+		s.failures = append(s.failures, step+" (twin): "+err.Error())
+	}
 }
 
 // pair sends the same request twice in a row, the second without spacing.
@@ -467,7 +512,13 @@ func (s *scenario) cleanup() {
 	}
 	if s.appEmoji != "" {
 		s.step("delete application emoji", func() error {
-			return s.do("delete application emoji", "DELETE", "/applications/{application_id}/emojis/{emoji_id}", "/applications/"+s.appID+"/emojis/"+s.appEmoji, nil, nil)
+			if err := s.do("delete application emoji", "DELETE", "/applications/{application_id}/emojis/{emoji_id}", "/applications/"+s.appID+"/emojis/"+s.appEmoji, nil, nil); err != nil {
+				return err
+			}
+			if s.appEmoji2 != "" {
+				s.dropTwin("delete application emoji", "/applications/{application_id}/emojis/{emoji_id}", "/applications/"+s.appID+"/emojis/"+s.appEmoji2)
+			}
+			return nil
 		})
 	}
 	channels := append(append([]named{}, s.extra...),

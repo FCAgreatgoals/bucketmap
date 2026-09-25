@@ -57,8 +57,14 @@ func (s *scenario) exerciseApplication() {
 			return err
 		}
 		var e object
-		err := s.do("create application emoji", "POST", list, s.app()+"/emojis", map[string]any{"name": "bucketmap", "image": tinyPNG}, &e)
+		body := map[string]any{"name": "bucketmap", "image": tinyPNG}
+		if err := s.do("create application emoji", "POST", list, s.app()+"/emojis", body, &e); err != nil {
+			return err
+		}
 		s.appEmoji = e.ID
+		var twin object
+		err := s.twin("create application emoji", list, s.app()+"/emojis", body, "_2", &twin)
+		s.appEmoji2 = twin.ID
 		return err
 	})
 	s.step("use application emoji", func() error {
@@ -79,7 +85,7 @@ func (s *scenario) exerciseCommands() {
 	base := s.app() + "/guilds/" + s.cfg.Guild + "/commands"
 	list := "/applications/{application_id}/guilds/{guild_id}/commands"
 	one := list + "/{command_id}"
-	var cmd object
+	var cmd, cmd2 object
 	var original []map[string]any
 	s.step("list guild commands", func() error {
 		if err := s.need(s.appID); err != nil {
@@ -91,7 +97,11 @@ func (s *scenario) exerciseCommands() {
 		if err := s.need(s.appID); err != nil {
 			return err
 		}
-		return s.do("create guild command", "POST", list, base, map[string]any{"name": "bucketmap", "description": "bucketmap test command", "type": 1}, &cmd)
+		body := map[string]any{"name": "bucketmap", "description": "bucketmap test command", "type": 1}
+		if err := s.do("create guild command", "POST", list, base, body, &cmd); err != nil {
+			return err
+		}
+		return s.twin("create guild command", list, base, body, "-2", &cmd2)
 	})
 	s.step("read guild command", func() error {
 		if err := s.need(cmd.ID); err != nil {
@@ -125,7 +135,13 @@ func (s *scenario) exerciseCommands() {
 		if err := s.need(cmd.ID); err != nil {
 			return err
 		}
-		return s.do("delete guild command", "DELETE", one, base+"/"+cmd.ID, nil, nil)
+		if err := s.do("delete guild command", "DELETE", one, base+"/"+cmd.ID, nil, nil); err != nil {
+			return err
+		}
+		if cmd2.ID != "" {
+			s.dropTwin("delete guild command", one, base+"/"+cmd2.ID)
+		}
+		return nil
 	})
 	// Rewriting the guild's commands as they were before the run exercises the
 	// bulk overwrite without changing anything.
@@ -157,9 +173,13 @@ func (s *scenario) exerciseCommands() {
 	})
 	if s.cfg.AllowGlobalCommands {
 		s.step("create, edit and delete a global command", func() error {
-			var g object
-			if err := s.do("create global command", "POST", global, s.app()+"/commands", map[string]any{"name": "bucketmap", "description": "bucketmap test command", "type": 1}, &g); err != nil {
+			var g, g2 object
+			body := map[string]any{"name": "bucketmap", "description": "bucketmap test command", "type": 1}
+			if err := s.do("create global command", "POST", global, s.app()+"/commands", body, &g); err != nil {
 				return err
+			}
+			if err := s.twin("create global command", global, s.app()+"/commands", body, "-2", &g2); err == nil && g2.ID != "" {
+				defer s.dropTwin("delete global command", global+"/{command_id}", s.app()+"/commands/"+g2.ID)
 			}
 			if err := s.do("edit global command", "PATCH", global+"/{command_id}", s.app()+"/commands/"+g.ID, map[string]any{"description": "bucketmap test command, edited"}, nil); err != nil {
 				return err

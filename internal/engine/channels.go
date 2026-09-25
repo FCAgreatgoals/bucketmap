@@ -48,12 +48,16 @@ func (s *scenario) exerciseChannel() {
 
 func (s *scenario) exerciseInvites() {
 	ch := s.text
-	var invite object
+	var invite, invite2 object
 	s.step("create invite", func() error {
 		if err := s.need(ch); err != nil {
 			return err
 		}
-		return s.do("create invite", "POST", "/channels/{channel_id}/invites", "/channels/"+ch+"/invites", map[string]any{"max_age": 3600, "unique": true}, &invite)
+		body := map[string]any{"max_age": 3600, "unique": true}
+		if err := s.do("create invite", "POST", "/channels/{channel_id}/invites", "/channels/"+ch+"/invites", body, &invite); err != nil {
+			return err
+		}
+		return s.twin("create invite", "/channels/{channel_id}/invites", "/channels/"+ch+"/invites", body, "", &invite2)
 	})
 	s.step("list channel invites", func() error {
 		if err := s.need(ch); err != nil {
@@ -112,7 +116,13 @@ func (s *scenario) exerciseInvites() {
 		if err := s.need(invite.Code); err != nil {
 			return err
 		}
-		return s.do("delete invite", "DELETE", "/invites/{code}", "/invites/"+invite.Code, nil, nil)
+		if err := s.do("delete invite", "DELETE", "/invites/{code}", "/invites/"+invite.Code, nil, nil); err != nil {
+			return err
+		}
+		if invite2.Code != "" {
+			s.dropTwin("delete invite", "/invites/{code}", "/invites/"+invite2.Code)
+		}
+		return nil
 	})
 }
 

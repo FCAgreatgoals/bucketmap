@@ -271,8 +271,18 @@ func (s *scenario) exerciseThreads() {
 			AvailableTags []object `json:"available_tags"`
 		}
 		base := "/channels/" + s.forum + "/tags"
-		if err := s.do("create forum tag", "POST", "/channels/{channel_id}/tags", base, map[string]any{"name": s.cfg.Marker}, &ch); err != nil {
+		body := map[string]any{"name": s.cfg.Marker}
+		if err := s.do("create forum tag", "POST", "/channels/{channel_id}/tags", base, body, &ch); err != nil {
 			return err
+		}
+		var withTwin struct {
+			AvailableTags []object `json:"available_tags"`
+		}
+		if err := s.twin("create forum tag", "/channels/{channel_id}/tags", base, body, "-2", &withTwin); err != nil {
+			return err
+		}
+		if n := len(withTwin.AvailableTags); n > 0 {
+			defer s.dropTwin("delete forum tag", "/channels/{channel_id}/tags/{forum_tag_id}", base+"/"+withTwin.AvailableTags[n-1].ID)
 		}
 		if len(ch.AvailableTags) == 0 {
 			return afterFailure

@@ -173,8 +173,11 @@ that means two different things depending on the bucket:
 | `Reset-After` as the bucket drains | Shrinks | Grows |
 
 Two requests on the same bucket, back to back, are enough to tell them apart,
-far below any limit. The engine sends every read twice in a row, and a few
-writes that undo themselves, on purpose.
+far below any limit. The engine sends every request it can twice in a row:
+reads, PUT and PATCH, which set a state, deletes, whose second answers 404
+with the bucket's headers still on it, and POSTs that create nothing. A create
+is sent with a twin under a second name, and the twin is deleted right after
+the original.
 
 Some routes are not limited on their own at all: Discord answers them with a
 limit of a thousand that resets within a millisecond, and only the global
