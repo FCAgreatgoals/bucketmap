@@ -43,3 +43,12 @@ func TestCompareShapes(t *testing.T) {
 		t.Fatalf("a run differs from itself: %+v", got)
 	}
 }
+
+// Maps keyed by ids compare by the shape of their values, not their keys.
+func TestCompareShapesTreatsIdKeyedObjectsAsMaps(t *testing.T) {
+	direct := &Report{Results: []Result{{Step: "c", Method: "GET", Route: "/c", Status: 200, Response: []byte(`{"111":2,"222":0}`)}}}
+	candidate := &Report{Results: []Result{{Step: "c", Method: "GET", Route: "/c", Status: 200, Response: []byte(`{"333":1}`)}}}
+	if got := CompareShapes(direct, candidate); len(got) != 0 {
+		t.Fatalf("id keys reported as fields: %+v", got)
+	}
+}

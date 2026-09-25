@@ -71,6 +71,17 @@ func compareShape(path string, d, c any, diff *ShapeDiff) {
 			diff.Types = append(diff.Types, fmt.Sprintf("%s: %s, candidate %s", field(path), kind(d), kind(c)))
 			return
 		}
+		// An object keyed by ids is a map, as role member counts are: its
+		// keys are data, and only the shape of its values is compared.
+		if idKeyed(dt) && idKeyed(ct) {
+			for _, dv := range dt {
+				for _, cv := range ct {
+					compareShape(path+"{}", dv, cv, diff)
+					return
+				}
+			}
+			return
+		}
 		for k, dv := range dt {
 			cv, ok := ct[k]
 			if !ok {
@@ -100,6 +111,18 @@ func compareShape(path string, d, c any, diff *ShapeDiff) {
 			diff.Types = append(diff.Types, fmt.Sprintf("%s: %s, candidate %s", field(path), kind(d), kind(c)))
 		}
 	}
+}
+
+func idKeyed(m map[string]any) bool {
+	if len(m) == 0 {
+		return false
+	}
+	for k := range m {
+		if k == "" || strings.Trim(k, "0123456789") != "" {
+			return false
+		}
+	}
+	return true
 }
 
 func kind(v any) string {
