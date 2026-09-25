@@ -4,29 +4,6 @@
     "Models come from runs against Discord: two requests on one bucket in a row tell a token bucket from a fixed window.",
     "No limit or window is recorded here: they differ between applications and change over time."
   ],
-  "models": {
-    "token_bucket": [
-      "DELETE /channels/{channel_id}/messages/{message_id}",
-      "GET /channels/{channel_id}/messages",
-      "GET /guilds/{guild_id}/invites",
-      "GET /guilds/{guild_id}/onboarding",
-      "GET /users/{user_id}",
-      "PATCH /applications/{application_id}/commands/{command_id}",
-      "PATCH /guilds/{guild_id}/roles/{role_id}",
-      "POST /channels/{channel_id}/messages",
-      "POST /guilds/{guild_id}/roles"
-    ],
-    "fixed_window": [
-      "DELETE /guilds/{guild_id}/members/{user_id}/roles/{role_id}",
-      "GET /gateway/bot",
-      "GET /guilds/{guild_id}/channels",
-      "GET /guilds/{guild_id}/members",
-      "PATCH /guilds/{guild_id}/members/@me",
-      "PATCH /guilds/{guild_id}/members/{user_id}",
-      "PUT /channels/{channel_id}/permissions/{overwrite_id}",
-      "PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}"
-    ]
-  },
   "families": {
     "webhook_messages": {
       "note": "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
@@ -45,6 +22,121 @@
       ]
     }
   },
+  "global_exempt": [
+    "POST /interactions/{interaction_id}/{interaction_token}/callback"
+  ],
+  "models": {
+    "fixed_window": [
+      "DELETE /channels/{channel_id}/permissions/{overwrite_id}",
+      "DELETE /guilds/{guild_id}/members/{user_id}/roles/{role_id}",
+      "GET /gateway/bot",
+      "GET /guilds/{guild_id}/channels",
+      "GET /guilds/{guild_id}/members",
+      "GET /guilds/{guild_id}/voice-states/@me",
+      "GET /guilds/{guild_id}/voice-states/{user_id}",
+      "PATCH /channels/{channel_id}",
+      "PATCH /guilds/{guild_id}/channels",
+      "PATCH /guilds/{guild_id}/members/@me",
+      "PATCH /guilds/{guild_id}/members/@me/nick",
+      "PATCH /guilds/{guild_id}/members/{user_id}",
+      "PATCH /guilds/{guild_id}/widget",
+      "POST /channels/{channel_id}/messages/{message_id}/threads",
+      "POST /channels/{channel_id}/threads",
+      "POST /guilds/{guild_id}/channels",
+      "PUT /channels/{channel_id}/permissions/{overwrite_id}",
+      "PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}"
+    ],
+    "global_only": [
+      "DELETE /channels/{channel_id}",
+      "DELETE /channels/{channel_id}/thread-members/@me",
+      "DELETE /channels/{channel_id}/thread-members/{user_id}",
+      "DELETE /guilds/{guild_id}/bans/{user_id}",
+      "DELETE /guilds/{guild_id}/soundboard-sounds/{sound_id}",
+      "DELETE /webhooks/{webhook_id}",
+      "GET /applications/@me",
+      "GET /applications/{application_id}",
+      "GET /applications/{application_id}/commands",
+      "GET /applications/{application_id}/commands/{command_id}",
+      "GET /applications/{application_id}/guilds/{guild_id}/commands",
+      "GET /applications/{application_id}/guilds/{guild_id}/commands/permissions",
+      "GET /applications/{application_id}/guilds/{guild_id}/commands/{command_id}",
+      "GET /applications/{application_id}/guilds/{guild_id}/commands/{command_id}/permissions",
+      "GET /channels/{channel_id}",
+      "GET /channels/{channel_id}/invites",
+      "GET /channels/{channel_id}/threads/archived/private",
+      "GET /channels/{channel_id}/webhooks",
+      "GET /guilds/{guild_id}",
+      "GET /guilds/{guild_id}/audit-logs",
+      "GET /guilds/{guild_id}/bans/{user_id}",
+      "GET /guilds/{guild_id}/emojis",
+      "GET /guilds/{guild_id}/emojis/{emoji_id}",
+      "GET /guilds/{guild_id}/integrations",
+      "GET /guilds/{guild_id}/prune",
+      "GET /guilds/{guild_id}/regions",
+      "GET /guilds/{guild_id}/roles",
+      "GET /guilds/{guild_id}/roles/{role_id}",
+      "GET /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/users/counts",
+      "GET /guilds/{guild_id}/soundboard-sounds",
+      "GET /guilds/{guild_id}/soundboard-sounds/{sound_id}",
+      "GET /guilds/{guild_id}/stickers",
+      "GET /guilds/{guild_id}/stickers/{sticker_id}",
+      "GET /guilds/{guild_id}/templates",
+      "GET /guilds/{guild_id}/threads/active",
+      "GET /guilds/{guild_id}/vanity-url",
+      "GET /guilds/{guild_id}/webhooks",
+      "GET /guilds/{guild_id}/widget",
+      "GET /soundboard-default-sounds",
+      "GET /users/@me",
+      "GET /voice/regions",
+      "GET /webhooks/{webhook_id}",
+      "PATCH /guilds/{guild_id}/soundboard-sounds/{sound_id}",
+      "PATCH /webhooks/{webhook_id}",
+      "POST /channels/{channel_id}/polls/{message_id}/expire",
+      "POST /channels/{channel_id}/webhooks",
+      "POST /guilds/{guild_id}/emojis",
+      "POST /guilds/{guild_id}/soundboard-sounds",
+      "POST /guilds/{guild_id}/stickers",
+      "PUT /channels/{channel_id}/thread-members/@me",
+      "PUT /channels/{channel_id}/thread-members/{user_id}",
+      "PUT /guilds/{guild_id}/bans/{user_id}",
+      "PUT /guilds/{guild_id}/incident-actions"
+    ],
+    "token_bucket": [
+      "DELETE /channels/{channel_id}/messages/{message_id}",
+      "DELETE /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+      "GET /channels/{channel_id}/messages",
+      "GET /guilds/{guild_id}/invites",
+      "GET /guilds/{guild_id}/onboarding",
+      "GET /users/{user_id}",
+      "PATCH /applications/@me",
+      "PATCH /applications/{application_id}",
+      "PATCH /applications/{application_id}/commands/{command_id}",
+      "PATCH /guilds/{guild_id}/roles",
+      "PATCH /guilds/{guild_id}/roles/{role_id}",
+      "POST /channels/{channel_id}/messages",
+      "POST /guilds/{guild_id}/roles",
+      "POST /guilds/{guild_id}/scheduled-events",
+      "POST /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions"
+    ]
+  },
+  "needs_interaction": [
+    "POST /interactions/{interaction_id}/{interaction_token}/callback",
+    "GET /webhooks/{webhook_id}/{webhook_token}/messages/@original",
+    "PATCH /webhooks/{webhook_id}/{webhook_token}/messages/@original",
+    "DELETE /webhooks/{webhook_id}/{webhook_token}/messages/@original"
+  ],
+  "not_exercised": {
+    "DELETE /users/@me/guilds/{guild_id}": "Makes the bot leave the guild.",
+    "DELETE /guilds/{guild_id}/integrations/{integration_id}": "Removes an integration, possibly the bot's own.",
+    "PATCH /users/@me": "Changes the bot's profile, under a limit of a few changes per hour.",
+    "PUT /applications/{application_id}/commands": "Replaces every global command of the application.",
+    "POST /channels/{channel_id}/send-soundboard-sound": "Needs the bot connected to a voice channel, through the gateway.",
+    "PATCH /guilds/{guild_id}/requests/{request_id}": "Needs a pending join request.",
+    "POST /guilds/{guild_id}/migrate-bypass-slowmode-permission": "A one-time migration of the guild's permissions.",
+    "POST /guilds/{guild_id}/migrate-pin-permission": "A one-time migration of the guild's permissions.",
+    "PATCH /channels/{channel_id}/explicit-media": "Asks Discord to scan media for explicit content.",
+    "PATCH /messages/explicit-media": "Asks Discord to scan media for explicit content."
+  },
   "notes": {
     "PATCH /channels/{channel_id}": [
       "Changing a channel's name or topic sits behind a sub-limit of its own, a few per ten minutes, that the headers do not announce: only a 429 reveals it (discord/discord-api-docs#1900, #2190). The scenario renames once per run to stay clear of it."
@@ -52,11 +144,21 @@
     "DELETE /channels/{channel_id}/messages/{message_id}": [
       "Client libraries count deletes of messages older than fourteen days, and of messages younger than ten seconds, apart from other deletes. Discord does not document it, and a run cannot create a fourteen day old message."
     ],
-    "POST /guilds/{guild_id}/emojis": ["Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."],
-    "GET /guilds/{guild_id}/emojis": ["Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."],
-    "GET /guilds/{guild_id}/emojis/{emoji_id}": ["Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."],
-    "PATCH /guilds/{guild_id}/emojis/{emoji_id}": ["Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."],
-    "DELETE /guilds/{guild_id}/emojis/{emoji_id}": ["Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."],
+    "POST /guilds/{guild_id}/emojis": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ],
+    "GET /guilds/{guild_id}/emojis": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ],
+    "GET /guilds/{guild_id}/emojis/{emoji_id}": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ],
+    "PATCH /guilds/{guild_id}/emojis/{emoji_id}": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ],
+    "DELETE /guilds/{guild_id}/emojis/{emoji_id}": [
+      "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
+    ],
     "POST /interactions/{interaction_id}/{interaction_token}/callback": [
       "Interaction endpoints are not bound to the bot's global limit (Discord's documentation, Global Rate Limit)."
     ],
@@ -73,65 +175,144 @@
     "GET /guilds/{guild_id}/messages/search": [
       "Answers 202 with a retry_after in its body while the guild's search index is being built."
     ],
-    "GET /channels/{channel_id}/pins": ["Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."],
-    "PUT /channels/{channel_id}/pins/{message_id}": ["Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."],
-    "DELETE /channels/{channel_id}/pins/{message_id}": ["Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."],
-    "PATCH /guilds/{guild_id}/members/@me/nick": ["Deprecated, replaced by PATCH /guilds/{guild_id}/members/@me."]
-  },
-  "needs_interaction": [
-    "POST /interactions/{interaction_id}/{interaction_token}/callback",
-    "GET /webhooks/{webhook_id}/{webhook_token}/messages/@original",
-    "PATCH /webhooks/{webhook_id}/{webhook_token}/messages/@original",
-    "DELETE /webhooks/{webhook_id}/{webhook_token}/messages/@original"
-  ],
-  "global_exempt": [
-    "POST /interactions/{interaction_id}/{interaction_token}/callback"
-  ],
-  "not_exercised": {
-    "DELETE /users/@me/guilds/{guild_id}": "Makes the bot leave the guild.",
-    "DELETE /guilds/{guild_id}/integrations/{integration_id}": "Removes an integration, possibly the bot's own.",
-    "PATCH /users/@me": "Changes the bot's profile, under a limit of a few changes per hour.",
-    "PUT /applications/{application_id}/commands": "Replaces every global command of the application.",
-    "POST /channels/{channel_id}/send-soundboard-sound": "Needs the bot connected to a voice channel, through the gateway.",
-    "PATCH /guilds/{guild_id}/requests/{request_id}": "Needs a pending join request.",
-    "PUT /invites/{code}/target-users": "Not covered yet.",
-    "POST /invites/{code}/target-users/bulk-add": "Not covered yet.",
-    "POST /invites/{code}/target-users/bulk-delete": "Not covered yet.",
-    "GET /invites/{code}/target-users/job-status": "Not covered yet.",
-    "POST /guilds/{guild_id}/migrate-bypass-slowmode-permission": "A one-time migration of the guild's permissions.",
-    "POST /guilds/{guild_id}/migrate-pin-permission": "A one-time migration of the guild's permissions.",
-    "PATCH /channels/{channel_id}/explicit-media": "Asks Discord to scan media for explicit content.",
-    "PATCH /messages/explicit-media": "Asks Discord to scan media for explicit content."
+    "GET /channels/{channel_id}/pins": [
+      "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
+    ],
+    "PUT /channels/{channel_id}/pins/{message_id}": [
+      "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
+    ],
+    "DELETE /channels/{channel_id}/pins/{message_id}": [
+      "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
+    ],
+    "PATCH /guilds/{guild_id}/members/@me/nick": [
+      "Deprecated, replaced by PATCH /guilds/{guild_id}/members/@me."
+    ],
+    "GET /channels/{channel_id}/threads/active": [
+      "Answers 404 on Discord today: the route appears to be gone, replaced by GET /guilds/{guild_id}/threads/active."
+    ],
+    "GET /guilds/{guild_id}/vanity-url": [
+      "Answers 403 on a guild without a vanity URL feature."
+    ],
+    "GET /guilds/{guild_id}/requests": [
+      "Answers 403 on a guild without member applications."
+    ]
   },
   "out_of_scope": [
-    {"match": "/lobbies", "reason": "Lobbies belong to the Social SDK."},
-    {"match": "/partner-sdk", "reason": "Social SDK."},
-    {"match": "/oauth2/", "reason": "Needs an OAuth2 token."},
-    {"match": "entitlements", "reason": "Monetization."},
-    {"match": "/skus", "reason": "Monetization."},
-    {"match": "/store/", "reason": "Monetization."},
-    {"match": "/products", "reason": "Monetization."},
-    {"match": "/users/@me/applications/", "reason": "Needs an OAuth2 token."},
-    {"match": "/github", "reason": "Called by GitHub, not by a bot."},
-    {"match": "/slack", "reason": "Called by Slack, not by a bot."},
-    {"match": "activity-instances", "reason": "Activities."},
-    {"match": "/recipients/", "reason": "Group DMs, which bots cannot join."},
-    {"match": "widget-configs", "reason": "Application widgets, managed from the developer portal."},
-    {"match": "identities", "reason": "Application widgets, managed from the developer portal."},
-    {"match": "promotions", "reason": "Promotions."},
-    {"match": "/apex/", "reason": "Experiments."},
-    {"match": "discover", "reason": "Server discovery, for eligible guilds only."},
-    {"match": "/gifs/", "reason": "Client analytics."},
-    {"match": "/applications/{application_id}/assets", "reason": "Managed from the developer portal."},
-    {"match": "/applications/{application_id}/{key}", "reason": "Managed from the developer portal."},
-    {"match": "quick-links", "reason": "Managed from the developer portal."},
-    {"match": "/applications/{application_id}/attachment", "reason": "Activities."},
-    {"match": "friend-members", "reason": "Friends, which bots do not have."},
-    {"match": "/users/@me/connections", "reason": "Needs an OAuth2 token."},
-    {"match": "/users/@me/dms/", "reason": "User accounts only."},
-    {"match": "linked-lobby", "reason": "Lobbies belong to the Social SDK."},
-    {"match": "false-positive", "reason": "Explicit content reports, from users."},
-    {"match": "PUT /guilds/{guild_id}/members/{user_id}", "reason": "Adds a user to a guild with their OAuth2 token."},
-    {"match": "PUT /applications/{application_id}/guilds/{guild_id}/commands/{command_id}/permissions", "reason": "Needs an OAuth2 token."}
+    {
+      "match": "/lobbies",
+      "reason": "Lobbies belong to the Social SDK."
+    },
+    {
+      "match": "/partner-sdk",
+      "reason": "Social SDK."
+    },
+    {
+      "match": "/oauth2/",
+      "reason": "Needs an OAuth2 token."
+    },
+    {
+      "match": "entitlements",
+      "reason": "Monetization."
+    },
+    {
+      "match": "/skus",
+      "reason": "Monetization."
+    },
+    {
+      "match": "/store/",
+      "reason": "Monetization."
+    },
+    {
+      "match": "/products",
+      "reason": "Monetization."
+    },
+    {
+      "match": "/users/@me/applications/",
+      "reason": "Needs an OAuth2 token."
+    },
+    {
+      "match": "/github",
+      "reason": "Called by GitHub, not by a bot."
+    },
+    {
+      "match": "/slack",
+      "reason": "Called by Slack, not by a bot."
+    },
+    {
+      "match": "activity-instances",
+      "reason": "Activities."
+    },
+    {
+      "match": "/recipients/",
+      "reason": "Group DMs, which bots cannot join."
+    },
+    {
+      "match": "widget-configs",
+      "reason": "Application widgets, managed from the developer portal."
+    },
+    {
+      "match": "identities",
+      "reason": "Application widgets, managed from the developer portal."
+    },
+    {
+      "match": "promotions",
+      "reason": "Promotions."
+    },
+    {
+      "match": "/apex/",
+      "reason": "Experiments."
+    },
+    {
+      "match": "discover",
+      "reason": "Server discovery, for eligible guilds only."
+    },
+    {
+      "match": "/gifs/",
+      "reason": "Client analytics."
+    },
+    {
+      "match": "/applications/{application_id}/assets",
+      "reason": "Managed from the developer portal."
+    },
+    {
+      "match": "/applications/{application_id}/{key}",
+      "reason": "Managed from the developer portal."
+    },
+    {
+      "match": "quick-links",
+      "reason": "Managed from the developer portal."
+    },
+    {
+      "match": "/applications/{application_id}/attachment",
+      "reason": "Activities."
+    },
+    {
+      "match": "friend-members",
+      "reason": "Friends, which bots do not have."
+    },
+    {
+      "match": "/users/@me/connections",
+      "reason": "Needs an OAuth2 token."
+    },
+    {
+      "match": "/users/@me/dms/",
+      "reason": "User accounts only."
+    },
+    {
+      "match": "linked-lobby",
+      "reason": "Lobbies belong to the Social SDK."
+    },
+    {
+      "match": "false-positive",
+      "reason": "Explicit content reports, from users."
+    },
+    {
+      "match": "PUT /guilds/{guild_id}/members/{user_id}",
+      "reason": "Adds a user to a guild with their OAuth2 token."
+    },
+    {
+      "match": "PUT /applications/{application_id}/guilds/{guild_id}/commands/{command_id}/permissions",
+      "reason": "Needs an OAuth2 token."
+    }
   ]
 }

@@ -23,7 +23,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -35,7 +35,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -47,7 +47,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -59,7 +59,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -148,7 +148,7 @@
       "oauth2"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -203,7 +203,7 @@
       "oauth2"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -369,7 +369,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -411,7 +411,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -439,7 +439,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -467,7 +467,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -757,7 +757,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -770,7 +770,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -783,7 +783,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised",
     "notes": [
       "Changing a channel's name or topic sits behind a sub-limit of its own, a few per ten minutes, that the headers do not announce: only a 429 reveals it (discord/discord-api-docs#1900, #2190). The scenario renames once per run to stay clear of it."
@@ -841,7 +841,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1120,7 +1120,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1133,7 +1133,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1220,7 +1220,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1333,7 +1333,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1346,7 +1346,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1359,7 +1359,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1385,7 +1385,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1398,7 +1398,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1412,7 +1412,10 @@
     "major": "channel_id",
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Answers 404 on Discord today: the route appears to be gone, replaced by GET /guilds/{guild_id}/threads/active."
+    ]
   },
   {
     "method": "GET",
@@ -1424,7 +1427,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1502,7 +1505,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1515,7 +1518,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1626,7 +1629,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1652,7 +1655,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -1743,7 +1746,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "gated"
   },
   {
@@ -1756,7 +1759,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "gated"
   },
   {
@@ -1769,7 +1772,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "gated"
   },
   {
@@ -1835,7 +1838,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1848,7 +1851,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -1941,7 +1944,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised",
     "notes": [
       "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
@@ -1957,7 +1960,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised",
     "notes": [
       "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
@@ -1989,7 +1992,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised",
     "notes": [
       "Emoji routes are limited per guild outside the usual conventions, and their headers may be inaccurate (Discord's documentation, Rate Limits)."
@@ -2021,7 +2024,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2034,7 +2037,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2144,7 +2147,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised",
     "notes": [
       "Deprecated, replaced by PATCH /guilds/{guild_id}/members/@me."
@@ -2378,7 +2381,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2404,7 +2407,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2418,7 +2421,10 @@
     "major": "guild_id",
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Answers 403 on a guild without member applications."
+    ]
   },
   {
     "method": "PATCH",
@@ -2446,7 +2452,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2459,7 +2465,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2511,7 +2517,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2550,7 +2556,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2563,7 +2569,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2602,7 +2608,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised"
   },
   {
@@ -2654,7 +2660,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2680,7 +2686,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2693,7 +2699,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2706,7 +2712,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2719,7 +2725,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2732,7 +2738,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2745,7 +2751,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2758,7 +2764,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2784,7 +2790,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2810,7 +2816,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2875,7 +2881,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -2901,8 +2907,11 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
-    "coverage": "exercised"
+    "model": "global_only",
+    "coverage": "exercised",
+    "notes": [
+      "Answers 403 on a guild without a vanity URL feature."
+    ]
   },
   {
     "method": "GET",
@@ -2914,7 +2923,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2940,7 +2949,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -2966,7 +2975,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -3005,7 +3014,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -3018,7 +3027,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "exercised"
   },
   {
@@ -3127,10 +3136,7 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "not_exercised",
-    "notes": [
-      "Not exercised: Not covered yet."
-    ]
+    "coverage": "exercised"
   },
   {
     "method": "POST",
@@ -3142,10 +3148,7 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "not_exercised",
-    "notes": [
-      "Not exercised: Not covered yet."
-    ]
+    "coverage": "exercised"
   },
   {
     "method": "POST",
@@ -3157,10 +3160,7 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "not_exercised",
-    "notes": [
-      "Not exercised: Not covered yet."
-    ]
+    "coverage": "exercised"
   },
   {
     "method": "GET",
@@ -3172,10 +3172,7 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "not_exercised",
-    "notes": [
-      "Not exercised: Not covered yet."
-    ]
+    "coverage": "exercised"
   },
   {
     "method": "DELETE",
@@ -3658,7 +3655,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -3951,7 +3948,7 @@
       "oauth2"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -4142,7 +4139,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -4155,7 +4152,7 @@
     ],
     "major": "webhook_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -4168,7 +4165,7 @@
     ],
     "major": "webhook_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
@@ -4181,7 +4178,7 @@
     ],
     "major": "webhook_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "exercised"
   },
   {
