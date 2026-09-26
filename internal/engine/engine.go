@@ -35,6 +35,9 @@ type Config struct {
 	// Bodies keeps each request and answer in the report, tokens hidden, for
 	// a field by field comparison. The report grows to a few megabytes.
 	Bodies bool
+	// Stage is a stage channel where test user 1 sits during the run, for the
+	// one route that edits a member's voice state.
+	Stage string
 	// Only restricts the run to these groups, and those they need. Empty runs
 	// them all. See Groups.
 	Only []string
@@ -112,6 +115,9 @@ func dryRun(full bool, only []string) *Report {
 		Agent:     "bucketmap dry run",
 		AllowKick: full, AllowBan: full, AllowPrune: full, AllowGlobalCommands: full,
 		Only: only,
+	}
+	if full {
+		cfg.Stage = "1"
 	}
 	c := newClient(srv.URL, cfg.Token, cfg.Agent, 0)
 	c.lenient = true

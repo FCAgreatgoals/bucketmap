@@ -506,11 +506,20 @@ func (s *scenario) exerciseCommunity() {
 		}
 		news = ch.ID
 		s.extra = append(s.extra, named{"announcement channel", news})
-		var m object
+		// Two announcements, published back to back: a message is published
+		// once, so the pair takes two.
+		var m, m2 object
 		if err := s.do("send announcement", "POST", "/channels/{channel_id}/messages", "/channels/"+news+"/messages", map[string]any{"content": "bucketmap announcement"}, &m); err != nil {
 			return err
 		}
-		if err := s.do("publish announcement", "POST", "/channels/{channel_id}/messages/{message_id}/crosspost", "/channels/"+news+"/messages/"+m.ID+"/crosspost", nil, nil); err != nil {
+		if err := s.do("send a second announcement", "POST", "/channels/{channel_id}/messages", "/channels/"+news+"/messages", map[string]any{"content": "bucketmap announcement 2"}, &m2); err != nil {
+			return err
+		}
+		crosspost := "/channels/{channel_id}/messages/{message_id}/crosspost"
+		if err := s.do("publish announcement", "POST", crosspost, "/channels/"+news+"/messages/"+m.ID+"/crosspost", nil, nil); err != nil {
+			return err
+		}
+		if err := s.c.do(call{step: "publish announcement (twin)", method: "POST", route: crosspost, path: "/channels/" + news + "/messages/" + m2.ID + "/crosspost", immediate: true}, nil); err != nil {
 			return err
 		}
 		if err := s.need(s.text2); err != nil {
@@ -534,10 +543,21 @@ func (s *scenario) exerciseCommunity() {
 		}
 		stage = ch.ID
 		s.extra = append(s.extra, named{"stage channel", stage})
+		// A second stage, started right after the first: a channel holds one
+		// instance, so the pair takes two channels.
+		var ch2 object
+		if err := s.do("create a second stage channel", "POST", "/guilds/{guild_id}/channels", g+"/channels", map[string]any{"name": s.cfg.Marker + "-stage-2", "type": 13, "parent_id": nilIfEmpty(s.category)}, &ch2); err != nil {
+			return err
+		}
+		s.extra = append(s.extra, named{"second stage channel", ch2.ID})
 		route := "/stage-instances/{channel_id}"
 		if err := s.do("start stage instance", "POST", "/stage-instances", "/stage-instances", map[string]any{"channel_id": stage, "topic": s.cfg.Marker}, nil); err != nil {
 			return err
 		}
+		if err := s.c.do(call{step: "start stage instance (twin)", method: "POST", route: "/stage-instances", path: "/stage-instances", body: map[string]any{"channel_id": ch2.ID, "topic": s.cfg.Marker}, immediate: true}, nil); err != nil {
+			return err
+		}
+		defer s.dropTwin("end stage instance", route, "/stage-instances/"+ch2.ID)
 		if err := s.do("read stage instance", "GET", route, "/stage-instances/"+stage, nil, nil); err != nil {
 			return err
 		}
@@ -553,10 +573,24 @@ func (s *scenario) exerciseCommunity() {
 		if err := s.do("edit own voice state", "PATCH", "/guilds/{guild_id}/voice-states/@me", g+"/voice-states/@me", map[string]any{"channel_id": stage, "suppress": true}, nil); err != nil {
 			return err
 		}
+		return nil
+	})
+	// A member's voice state can only be edited while they sit on a stage: the
+	// run cannot connect anyone, so it uses a stage channel given with -stage
+	// where test user 1 is connected.
+	s.step("edit a member's voice state on a live stage", func() error {
+		if s.cfg.Stage == "" {
+			return skip("needs -stage and test user 1 connected to it")
+		}
 		if len(s.cfg.Users) == 0 {
 			return afterFailure
 		}
-		return s.do("edit a member's voice state", "PATCH", "/guilds/{guild_id}/voice-states/{user_id}", g+"/voice-states/"+s.cfg.Users[0], map[string]any{"channel_id": stage, "suppress": true}, nil)
+		route := "/guilds/{guild_id}/voice-states/{user_id}"
+		path := g + "/voice-states/" + s.cfg.Users[0]
+		if err := s.do("read the member's voice state", "GET", route, path, nil, nil); err != nil {
+			return err
+		}
+		return s.do("edit a member's voice state", "PATCH", route, path, map[string]any{"channel_id": s.cfg.Stage, "suppress": true}, nil)
 	})
 }
 

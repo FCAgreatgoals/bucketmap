@@ -127,6 +127,11 @@ func (s *scenario) need(values ...string) error {
 // twice changes nothing.
 func (s *scenario) do(step, method, route, path string, body, out any) error {
 	if err := s.c.do(call{step: step, method: method, route: route, path: path, body: body}, out); err != nil {
+		// A read answered 404 is still paired: a 404 carries the bucket's
+		// headers and is not an invalid request.
+		if method == "GET" && isStatus(err, 404) {
+			_ = s.c.do(call{step: step + " (again)", method: method, route: route, path: path, immediate: true}, nil)
+		}
 		return err
 	}
 	if !repeatable(method, route, body) {

@@ -28,7 +28,7 @@ func TestPlainDryRunOnlySkipsCommunitySteps(t *testing.T) {
 		t.Errorf("failed: %s", f)
 	}
 	for _, s := range r.Skipped {
-		if !strings.HasSuffix(s, "needs a community guild") && !strings.Contains(s, "no stage channel") {
+		if !strings.HasSuffix(s, "needs a community guild") && !strings.Contains(s, "no stage channel") && !strings.Contains(s, "needs -stage") {
 			t.Errorf("skipped: %s", s)
 		}
 	}

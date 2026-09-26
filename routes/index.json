@@ -253,7 +253,10 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Discord sends no rate limit header on this route: there is no bucket to measure."
+    ]
   },
   {
     "method": "GET",
@@ -1208,7 +1211,10 @@
     "major": "channel_id",
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Discord sends no rate limit header on this route: there is no bucket to measure."
+    ]
   },
   {
     "method": "POST",
@@ -1577,7 +1583,10 @@
     ],
     "global": true,
     "model": "unknown",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "Discord sends no rate limit header on this route: there is no bucket to measure."
+    ]
   },
   {
     "method": "GET",
@@ -3159,8 +3168,11 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
-    "coverage": "exercised"
+    "model": "token_bucket",
+    "coverage": "exercised",
+    "notes": [
+      "Two requests back to back left remaining unchanged while Reset-After grew by one token's time (1.67 s): a token bucket."
+    ]
   },
   {
     "method": "POST",

@@ -204,6 +204,7 @@
       "POST /guilds/{guild_id}/scheduled-events",
       "POST /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions",
       "POST /guilds/{guild_id}/templates",
+      "POST /invites/{code}/target-users/bulk-add",
       "POST /invites/{code}/target-users/bulk-delete",
       "POST /webhooks/{webhook_id}/{webhook_token}",
       "PUT /applications/{application_id}/guilds/{guild_id}/commands",
@@ -308,6 +309,18 @@
     ],
     "PATCH /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions/{exception_id}": [
       "An exception must change a field of the series: one that only sets is_canceled back to false is refused (400, 180005)."
+    ],
+    "GET /gateway": [
+      "Discord sends no rate limit header on this route: there is no bucket to measure."
+    ],
+    "DELETE /applications/{application_id}/emojis/{emoji_id}": [
+      "Discord sends no rate limit header on this route: there is no bucket to measure."
+    ],
+    "GET /channels/{channel_id}/polls/{message_id}/answers/{answer_id}": [
+      "Discord sends no rate limit header on this route: there is no bucket to measure."
+    ],
+    "POST /invites/{code}/target-users/bulk-add": [
+      "Two requests back to back left remaining unchanged while Reset-After grew by one token's time (1.67 s): a token bucket."
     ]
   },
   "out_of_scope": [
