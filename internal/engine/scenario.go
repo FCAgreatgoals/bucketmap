@@ -190,7 +190,6 @@ var repeatablePosts = map[string]bool{
 	"/channels/{channel_id}/attachments":       true,
 	"/invites/{code}/target-users/bulk-add":    true,
 	"/invites/{code}/target-users/bulk-delete": true,
-	"/guilds/{guild_id}/prune":                 true,
 }
 
 // twin sends a second create at once, its name suffixed so that it does not

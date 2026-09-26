@@ -54,8 +54,10 @@
       "PATCH /guilds/{guild_id}/members/@me/nick",
       "PATCH /guilds/{guild_id}/members/{user_id}",
       "PATCH /guilds/{guild_id}/voice-states/@me",
+      "PATCH /guilds/{guild_id}/voice-states/{user_id}",
       "PATCH /guilds/{guild_id}/welcome-screen",
       "PATCH /guilds/{guild_id}/widget",
+      "POST /channels/{channel_id}/messages/{message_id}/crosspost",
       "POST /channels/{channel_id}/messages/{message_id}/threads",
       "POST /channels/{channel_id}/threads",
       "POST /guilds/{guild_id}/channels",
@@ -140,6 +142,7 @@
       "PUT /channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/@me"
     ],
     "token_bucket": [
+      "DELETE /applications/{application_id}/commands/{command_id}",
       "DELETE /applications/{application_id}/guilds/{guild_id}/commands/{command_id}",
       "DELETE /attachments/{upload_filename}",
       "DELETE /channels/{channel_id}/messages/{message_id}",
@@ -172,6 +175,7 @@
       "GET /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/users",
       "GET /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/{guild_scheduled_event_exception_id}/users",
       "GET /invites/{code}/target-users",
+      "GET /invites/{code}/target-users/job-status",
       "GET /stickers/{sticker_id}",
       "GET /users/{user_id}",
       "GET /webhooks/{webhook_id}/{webhook_token}",
@@ -192,6 +196,7 @@
       "PATCH /stage-instances/{channel_id}",
       "PATCH /webhooks/{webhook_id}/{webhook_token}",
       "PATCH /webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+      "POST /applications/{application_id}/commands",
       "POST /applications/{application_id}/guilds/{guild_id}/commands",
       "POST /attachments/refresh-urls",
       "POST /channels/{channel_id}/attachments",
@@ -206,6 +211,7 @@
       "POST /guilds/{guild_id}/templates",
       "POST /invites/{code}/target-users/bulk-add",
       "POST /invites/{code}/target-users/bulk-delete",
+      "POST /stage-instances",
       "POST /webhooks/{webhook_id}/{webhook_token}",
       "PUT /applications/{application_id}/guilds/{guild_id}/commands",
       "PUT /channels/{channel_id}/messages/pins/{message_id}",
@@ -321,6 +327,9 @@
     ],
     "POST /invites/{code}/target-users/bulk-add": [
       "Two requests back to back left remaining unchanged while Reset-After grew by one token's time (1.67 s): a token bucket."
+    ],
+    "POST /guilds/{guild_id}/prune": [
+      "A hidden limit the headers never show: the first prune announces a limit of a thousand, the next one within fifteen minutes is refused with 30040 \"Max number of prune requests has been reached\" and 899 s to wait, in the shared scope (September 2026)."
     ]
   },
   "out_of_scope": [

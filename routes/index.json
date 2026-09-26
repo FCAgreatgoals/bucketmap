@@ -161,7 +161,7 @@
       "oauth2"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {
@@ -190,7 +190,7 @@
       "oauth2"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {
@@ -1006,7 +1006,7 @@
     ],
     "major": "channel_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "gated"
   },
   {
@@ -2407,7 +2407,10 @@
     "major": "guild_id",
     "global": true,
     "model": "unknown",
-    "coverage": "gated"
+    "coverage": "gated",
+    "notes": [
+      "A hidden limit the headers never show: the first prune announces a limit of a thousand, the next one within fifteen minutes is refused with 30040 \"Max number of prune requests has been reached\" and 899 s to wait, in the shared scope (September 2026)."
+    ]
   },
   {
     "method": "GET",
@@ -2980,7 +2983,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "fixed_window",
     "coverage": "gated"
   },
   {
@@ -3195,7 +3198,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "exercised",
     "notes": [
       "Answers 404 Unknown invite target users job (10124) when no job is running."
@@ -3694,7 +3697,7 @@
       "bot"
     ],
     "global": true,
-    "model": "unknown",
+    "model": "token_bucket",
     "coverage": "gated"
   },
   {
