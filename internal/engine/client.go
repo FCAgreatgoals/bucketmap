@@ -344,17 +344,19 @@ func majorOf(route, path string) string {
 	if len(rParts) != len(pParts) {
 		return ""
 	}
-	for i, part := range rParts {
-		switch part {
-		case "{channel_id}", "{guild_id}":
-			return pParts[i]
-		case "{webhook_id}":
-			if i+1 < len(rParts) && rParts[i+1] == "{webhook_token}" {
-				sum := sha256.Sum256([]byte(pParts[i+1]))
-				return pParts[i] + "/" + hex.EncodeToString(sum[:4])
-			}
-			return pParts[i]
+	// Only the resource the path starts with splits counters.
+	if len(rParts) < 2 {
+		return ""
+	}
+	switch rParts[1] {
+	case "{channel_id}", "{guild_id}":
+		return pParts[1]
+	case "{webhook_id}":
+		if len(rParts) > 2 && rParts[2] == "{webhook_token}" {
+			sum := sha256.Sum256([]byte(pParts[2]))
+			return pParts[1] + "/" + hex.EncodeToString(sum[:4])
 		}
+		return pParts[1]
 	}
 	return ""
 }

@@ -293,20 +293,25 @@ func newRoute(method, path, name, source string, auth []string) *routes.Route {
 	}
 }
 
-// major finds the parameter Discord splits counters by: the first channel,
-// guild or webhook in the path, with the webhook's token when it has one.
+// major finds the parameter Discord splits counters by: the resource the path
+// starts with, a channel, a guild or a webhook, with the webhook's token when
+// it has one. Further in a path, an id splits nothing: two stage instances of
+// two channels, /stage-instances/{channel_id}, drew on one counter in a run.
 func major(path string) string {
 	parts := strings.Split(strings.Trim(path, "/"), "/")
-	for i, p := range parts {
-		switch p {
-		case "{channel_id}", "{guild_id}":
-			return strings.Trim(p, "{}")
-		case "{webhook_id}":
-			if i+1 < len(parts) && parts[i+1] == "{webhook_token}" {
-				return "webhook_id+webhook_token"
-			}
-			return "webhook_id"
+	if len(parts) < 2 {
+		return ""
+	}
+	switch {
+	case parts[0] == "channels" && parts[1] == "{channel_id}":
+		return "channel_id"
+	case parts[0] == "guilds" && parts[1] == "{guild_id}":
+		return "guild_id"
+	case parts[0] == "webhooks" && parts[1] == "{webhook_id}":
+		if len(parts) > 2 && parts[2] == "{webhook_token}" {
+			return "webhook_id+webhook_token"
 		}
+		return "webhook_id"
 	}
 	return ""
 }

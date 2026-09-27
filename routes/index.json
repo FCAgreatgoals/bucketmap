@@ -390,7 +390,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "global_only",
     "coverage": "exercised"
@@ -404,7 +403,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "token_bucket",
     "family": "bucket-d9825c19",
@@ -422,7 +420,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "token_bucket",
     "coverage": "exercised"
@@ -436,7 +433,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "global_only",
     "coverage": "exercised"
@@ -450,7 +446,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "token_bucket",
     "family": "bucket-8a79c31d",
@@ -468,7 +463,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "global_only",
     "coverage": "exercised"
@@ -482,7 +476,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "token_bucket",
     "family": "bucket-9c095ea6",
@@ -500,7 +493,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "global_only",
     "coverage": "exercised"
@@ -514,7 +506,6 @@
       "bot",
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "unknown",
     "coverage": "out_of_scope",
@@ -3864,7 +3855,6 @@
     "auth": [
       "bot"
     ],
-    "major": "channel_id",
     "global": true,
     "model": "token_bucket",
     "coverage": "gated"
@@ -3877,7 +3867,6 @@
     "auth": [
       "bot"
     ],
-    "major": "channel_id",
     "global": true,
     "model": "global_only",
     "coverage": "gated"
@@ -3890,7 +3879,6 @@
     "auth": [
       "bot"
     ],
-    "major": "channel_id",
     "global": true,
     "model": "token_bucket",
     "coverage": "gated"
@@ -4277,7 +4265,6 @@
     "auth": [
       "bot"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "unknown",
     "coverage": "not_exercised",
@@ -4293,7 +4280,6 @@
     "auth": [
       "oauth2"
     ],
-    "major": "guild_id",
     "global": true,
     "model": "unknown",
     "coverage": "out_of_scope",

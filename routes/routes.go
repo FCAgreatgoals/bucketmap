@@ -71,8 +71,10 @@ type Route struct {
 	// Auth lists what the route accepts: "bot", "oauth2", "none".
 	Auth []string `json:"auth"`
 	// Major is the parameter that gives each value its own counter:
-	// channel_id, guild_id, webhook_id, or webhook_id+webhook_token. Empty
-	// when every call shares one counter per application.
+	// channel_id, guild_id, webhook_id, or webhook_id+webhook_token, and only
+	// as the resource the path starts with. Empty when every call shares one
+	// counter per application. One bucket and one major value make one
+	// counter, whatever the route: that is what runs against Discord showed.
 	Major string `json:"major,omitempty"`
 	// Global is false for routes exempt from the bot's global limit.
 	Global bool  `json:"global"`

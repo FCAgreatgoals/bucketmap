@@ -30,7 +30,9 @@ func TestMatch(t *testing.T) {
 		{"PATCH", "/guilds/222/members/333", "/guilds/{guild_id}/members/{user_id}", "222"},
 		{"GET", "/api/users/@me", "/users/@me", ""},
 		{"POST", "/webhooks/444/tok", "/webhooks/{webhook_id}/{webhook_token}", "444/tok"},
-		{"GET", "/applications/555/guilds/222/commands", "/applications/{application_id}/guilds/{guild_id}/commands", "222"},
+		// Further in a path, an id is no major parameter.
+		{"GET", "/applications/555/guilds/222/commands", "/applications/{application_id}/guilds/{guild_id}/commands", ""},
+		{"DELETE", "/stage-instances/666", "/stage-instances/{channel_id}", ""},
 	}
 	for _, c := range cases {
 		r, ok := Match(c.method, c.path)
