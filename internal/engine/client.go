@@ -13,7 +13,10 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
+
+	"github.com/FCAgreatgoals/bucketmap/routes"
 )
 
 // Result is one request as it happened.
@@ -71,7 +74,11 @@ type client struct {
 	// routeBuckets maps a route and its major parameter to the Discord bucket
 	// last reported for it, so that routes sharing a bucket share its state.
 	routeBuckets map[string]string
-	buckets      map[string]*bucketState
+	// familyBuckets does the same for families of routes the index knows
+	// share a bucket, so that the first request of one waits on its
+	// relatives' bucket.
+	familyBuckets map[string]string
+	buckets       map[string]*bucketState
 
 	// group names the scenario group being run, recorded on each result.
 	group string
@@ -88,13 +95,14 @@ type client struct {
 
 func newClient(api, token, agent string, spacing time.Duration) *client {
 	return &client{
-		api:          strings.TrimRight(api, "/"),
-		token:        token,
-		agent:        agent,
-		http:         &http.Client{Timeout: 30 * time.Second},
-		spacing:      spacing,
-		routeBuckets: map[string]string{},
-		buckets:      map[string]*bucketState{},
+		api:           strings.TrimRight(api, "/"),
+		token:         token,
+		agent:         agent,
+		http:          &http.Client{Timeout: 30 * time.Second},
+		spacing:       spacing,
+		routeBuckets:  map[string]string{},
+		familyBuckets: map[string]string{},
+		buckets:       map[string]*bucketState{},
 	}
 }
 
@@ -261,7 +269,13 @@ func (c *client) pace(k call, major string) {
 			time.Sleep(wait)
 		}
 	}
-	if id, ok := c.routeBuckets[k.method+" "+k.route+" "+major]; ok {
+	id, ok := c.routeBuckets[k.method+" "+k.route+" "+major]
+	if !ok {
+		if f := familyOf(k.method, k.route); f != "" {
+			id, ok = c.familyBuckets[f+" "+major]
+		}
+	}
+	if ok {
 		if b := c.buckets[id]; b != nil && b.remaining == 0 {
 			// The margin holds even when the answer took the whole reset to
 			// come back: a quarter second bucket was sent into again 0.26 s
@@ -304,6 +318,9 @@ func (c *client) observe(r *Result, h http.Header) {
 	}
 	id := r.Bucket + ":" + r.Major
 	c.routeBuckets[r.Method+" "+r.Route+" "+r.Major] = id
+	if f := familyOf(r.Method, r.Route); f != "" {
+		c.familyBuckets[f+" "+r.Major] = id
+	}
 	b := c.buckets[id]
 	if b == nil {
 		b = &bucketState{}
@@ -372,4 +389,27 @@ func truncate(s string, n int) string {
 		return s
 	}
 	return s[:n] + "..."
+}
+
+var (
+	familiesOnce sync.Once
+	families     map[string]string
+)
+
+// familyOf names the family of routes the index says shares the route's
+// bucket, or "".
+func familyOf(method, route string) string {
+	familiesOnce.Do(func() {
+		families = map[string]string{}
+		all, err := routes.All()
+		if err != nil {
+			return
+		}
+		for _, r := range all {
+			if r.Family != "" {
+				families[r.Method+" "+r.Path] = r.Family
+			}
+		}
+	})
+	return families[method+" "+route]
 }

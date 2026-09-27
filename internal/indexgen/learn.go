@@ -63,8 +63,16 @@ func Learn(annotationsPath string, reports ...*engine.Report) ([]Change, error) 
 			}
 		}
 	}
+	families, familyChanges, err := learnFamilies(doc, reports...)
+	if err != nil {
+		return nil, err
+	}
+	changes = append(changes, familyChanges...)
 	if len(changes) == 0 {
 		return nil, nil
+	}
+	if families != nil {
+		doc["families"] = families
 	}
 
 	next := map[routes.Model][]string{}
@@ -85,4 +93,59 @@ func Learn(annotationsPath string, reports ...*engine.Report) ([]Change, error) 
 	}
 	sort.Slice(changes, func(i, j int) bool { return changes[i].Route < changes[j].Route })
 	return changes, os.WriteFile(annotationsPath, append(out, '\n'), 0o644)
+}
+
+type family struct {
+	Note   string   `json:"note"`
+	Routes []string `json:"routes"`
+}
+
+// learnFamilies records the routes runs saw share one bucket. A group that
+// overlaps a family already written extends it; another one becomes a family
+// named after Discord's identifier of the rule, which is not a measure.
+func learnFamilies(doc map[string]json.RawMessage, reports ...*engine.Report) (json.RawMessage, []Change, error) {
+	known := map[string]family{}
+	if raw, ok := doc["families"]; ok {
+		if err := json.Unmarshal(raw, &known); err != nil {
+			return nil, nil, fmt.Errorf("families: %w", err)
+		}
+	}
+	owner := map[string]string{}
+	for name, f := range known {
+		for _, r := range f.Routes {
+			owner[r] = name
+		}
+	}
+	var changes []Change
+	for _, b := range engine.Merge(reports...).Buckets {
+		if len(b.Routes) < 2 {
+			continue
+		}
+		name := ""
+		for _, r := range b.Routes {
+			if owner[r] != "" {
+				name = owner[r]
+				break
+			}
+		}
+		if name == "" {
+			name = "bucket-" + b.Bucket[:min(8, len(b.Bucket))]
+			known[name] = family{Note: "Discord counts these routes in one bucket, as runs against it showed."}
+		}
+		f := known[name]
+		for _, r := range b.Routes {
+			if owner[r] == "" {
+				owner[r] = name
+				f.Routes = append(f.Routes, r)
+				changes = append(changes, Change{Route: r, To: routes.Model("family " + name)})
+			}
+		}
+		sort.Strings(f.Routes)
+		known[name] = f
+	}
+	if len(changes) == 0 {
+		return nil, nil, nil
+	}
+	raw, err := json.Marshal(known)
+	return raw, changes, err
 }

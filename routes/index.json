@@ -36,7 +36,11 @@
     ],
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-2f297586",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -60,7 +64,11 @@
     ],
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-2f297586",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -162,7 +170,11 @@
     ],
     "global": true,
     "model": "token_bucket",
-    "coverage": "gated"
+    "family": "bucket-d9825c19",
+    "coverage": "gated",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PUT",
@@ -191,7 +203,11 @@
     ],
     "global": true,
     "model": "token_bucket",
-    "coverage": "gated"
+    "family": "bucket-8a79c31d",
+    "coverage": "gated",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -217,7 +233,11 @@
     ],
     "global": true,
     "model": "token_bucket",
-    "coverage": "gated"
+    "family": "bucket-9c095ea6",
+    "coverage": "gated",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -387,7 +407,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-d9825c19",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PUT",
@@ -429,7 +453,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-8a79c31d",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -457,7 +485,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-9c095ea6",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -787,8 +819,10 @@
     "major": "channel_id",
     "global": true,
     "model": "fixed_window",
+    "family": "bucket-6e836da6",
     "coverage": "exercised",
     "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed.",
       "Changing a channel's name or topic sits behind a sub-limit of its own, a few per ten minutes, that the headers do not announce: only a 429 reveals it (discord/discord-api-docs#1900, #2190). The scenario renames once per run to stay clear of it."
     ]
   },
@@ -926,7 +960,11 @@
     "major": "channel_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-71370d66",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -1020,7 +1058,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -1033,7 +1075,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -1059,7 +1105,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PUT",
@@ -1072,7 +1122,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -1085,7 +1139,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -1098,7 +1156,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -1111,7 +1173,11 @@
     "major": "channel_id",
     "global": true,
     "model": "single",
-    "coverage": "exercised"
+    "family": "bucket-acca0618",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "POST",
@@ -1124,7 +1190,11 @@
     "major": "channel_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-7ced0bc5",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -1137,7 +1207,11 @@
     "major": "channel_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-6e836da6",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PUT",
@@ -1150,7 +1224,11 @@
     "major": "channel_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-6e836da6",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -1163,8 +1241,10 @@
     "major": "channel_id",
     "global": true,
     "model": "token_bucket",
+    "family": "bucket-71370d66",
     "coverage": "exercised",
     "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed.",
       "Older pin route, replaced by /channels/{channel_id}/messages/pins, still answered."
     ]
   },
@@ -1405,7 +1485,11 @@
     "major": "channel_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-7ced0bc5",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -1848,7 +1932,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-6e836da6",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "POST",
@@ -2147,7 +2235,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-8499656c",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PATCH",
@@ -2160,8 +2252,10 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
+    "family": "bucket-8499656c",
     "coverage": "exercised",
     "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed.",
       "Deprecated, replaced by PATCH /guilds/{guild_id}/members/@me."
     ]
   },
@@ -2189,7 +2283,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "gated"
+    "family": "bucket-e06f83c3",
+    "coverage": "gated",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -2202,7 +2300,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-e06f83c3",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PATCH",
@@ -2572,7 +2674,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-b334726c",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -2585,7 +2691,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-d7862bf8",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -2614,7 +2724,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-686cfe2b",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "POST",
@@ -2627,7 +2741,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-b334726c",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -2640,7 +2758,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-d7862bf8",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PATCH",
@@ -2653,8 +2775,10 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
+    "family": "bucket-686cfe2b",
     "coverage": "exercised",
     "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed.",
       "An exception must change a field of the series: one that only sets is_canceled back to false is refused (400, 180005)."
     ]
   },
@@ -2669,7 +2793,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-13081f20",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -2695,7 +2823,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-13081f20",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -2851,7 +2983,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-a5954df9",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "DELETE",
@@ -2890,7 +3026,11 @@
     "major": "guild_id",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "bucket-a5954df9",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -2945,7 +3085,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-7a765473",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PATCH",
@@ -2958,7 +3102,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "gated"
+    "family": "bucket-7a765473",
+    "coverage": "gated",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -2971,7 +3119,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "exercised"
+    "family": "bucket-7a765473",
+    "coverage": "exercised",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "PATCH",
@@ -2984,7 +3136,11 @@
     "major": "guild_id",
     "global": true,
     "model": "fixed_window",
-    "coverage": "gated"
+    "family": "bucket-7a765473",
+    "coverage": "gated",
+    "notes": [
+      "Discord counts these routes in one bucket, as runs against it showed."
+    ]
   },
   {
     "method": "GET",
@@ -4223,7 +4379,11 @@
     "major": "webhook_id+webhook_token",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
   },
   {
     "method": "GET",
@@ -4237,7 +4397,11 @@
     "major": "webhook_id+webhook_token",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
   },
   {
     "method": "PATCH",
@@ -4251,7 +4415,11 @@
     "major": "webhook_id+webhook_token",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
   },
   {
     "method": "POST",
@@ -4356,7 +4524,11 @@
     "major": "webhook_id+webhook_token",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
   },
   {
     "method": "GET",
@@ -4370,7 +4542,11 @@
     "major": "webhook_id+webhook_token",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
   },
   {
     "method": "PATCH",
@@ -4384,7 +4560,11 @@
     "major": "webhook_id+webhook_token",
     "global": true,
     "model": "token_bucket",
-    "coverage": "exercised"
+    "family": "webhook_messages",
+    "coverage": "exercised",
+    "notes": [
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+    ]
   },
   {
     "method": "POST",

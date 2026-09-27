@@ -5,20 +5,147 @@
     "No limit or window is recorded here: they differ between applications and change over time."
   ],
   "families": {
-    "webhook_messages": {
-      "note": "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
+    "bucket-13081f20": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
       "routes": [
-        "POST /webhooks/{webhook_id}/{webhook_token}",
-        "GET /webhooks/{webhook_id}/{webhook_token}/messages/@original",
-        "PATCH /webhooks/{webhook_id}/{webhook_token}/messages/@original",
-        "DELETE /webhooks/{webhook_id}/{webhook_token}/messages/@original"
+        "GET /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/users",
+        "GET /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/{guild_scheduled_event_exception_id}/users"
+      ]
+    },
+    "bucket-2f297586": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "PATCH /applications/@me",
+        "PATCH /applications/{application_id}"
+      ]
+    },
+    "bucket-686cfe2b": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "PATCH /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+        "PATCH /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions/{exception_id}"
+      ]
+    },
+    "bucket-6e836da6": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "DELETE /channels/{channel_id}/permissions/{overwrite_id}",
+        "PATCH /channels/{channel_id}",
+        "PATCH /guilds/{guild_id}/channels",
+        "PUT /channels/{channel_id}/permissions/{overwrite_id}"
+      ]
+    },
+    "bucket-71370d66": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "GET /channels/{channel_id}/messages/pins",
+        "GET /channels/{channel_id}/pins"
+      ]
+    },
+    "bucket-7a765473": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "GET /guilds/{guild_id}/voice-states/@me",
+        "GET /guilds/{guild_id}/voice-states/{user_id}",
+        "PATCH /guilds/{guild_id}/voice-states/@me",
+        "PATCH /guilds/{guild_id}/voice-states/{user_id}"
+      ]
+    },
+    "bucket-7ced0bc5": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "POST /channels/{channel_id}/messages/{message_id}/threads",
+        "POST /channels/{channel_id}/threads"
+      ]
+    },
+    "bucket-8499656c": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "PATCH /guilds/{guild_id}/members/@me",
+        "PATCH /guilds/{guild_id}/members/@me/nick"
+      ]
+    },
+    "bucket-8a79c31d": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "DELETE /applications/{application_id}/commands/{command_id}",
+        "DELETE /applications/{application_id}/guilds/{guild_id}/commands/{command_id}"
+      ]
+    },
+    "bucket-9c095ea6": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "PATCH /applications/{application_id}/commands/{command_id}",
+        "PATCH /applications/{application_id}/guilds/{guild_id}/commands/{command_id}"
+      ]
+    },
+    "bucket-a5954df9": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "POST /guilds/{guild_id}/templates",
+        "PUT /guilds/{guild_id}/templates/{code}"
+      ]
+    },
+    "bucket-acca0618": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "DELETE /channels/{channel_id}/messages/{message_id}/reactions",
+        "DELETE /channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}",
+        "DELETE /channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/@me",
+        "DELETE /channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/{user_id}",
+        "DELETE /channels/{channel_id}/messages/{message_id}/reactions/{emoji}/{reaction_type}/@me",
+        "DELETE /channels/{channel_id}/messages/{message_id}/reactions/{emoji}/{reaction_type}/{user_id}",
+        "PUT /channels/{channel_id}/messages/{message_id}/reactions/{emoji_name}/@me"
+      ]
+    },
+    "bucket-b334726c": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "POST /guilds/{guild_id}/scheduled-events",
+        "POST /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions"
+      ]
+    },
+    "bucket-d7862bf8": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "DELETE /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}",
+        "DELETE /guilds/{guild_id}/scheduled-events/{guild_scheduled_event_id}/exceptions/{exception_id}"
+      ]
+    },
+    "bucket-d9825c19": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "POST /applications/{application_id}/commands",
+        "POST /applications/{application_id}/guilds/{guild_id}/commands"
+      ]
+    },
+    "bucket-e06f83c3": {
+      "note": "Discord counts these routes in one bucket, as runs against it showed.",
+      "routes": [
+        "DELETE /guilds/{guild_id}/members/{user_id}",
+        "GET /guilds/{guild_id}/members/{user_id}"
       ]
     },
     "member_roles": {
       "note": "Adding and removing a member's role share one bucket, per guild.",
       "routes": [
-        "PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}",
-        "DELETE /guilds/{guild_id}/members/{user_id}/roles/{role_id}"
+        "DELETE /guilds/{guild_id}/members/{user_id}/roles/{role_id}",
+        "PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}"
+      ]
+    },
+    "webhook_messages": {
+      "note": "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
+      "routes": [
+        "DELETE /webhooks/{webhook_id}/{webhook_token}",
+        "DELETE /webhooks/{webhook_id}/{webhook_token}/messages/@original",
+        "DELETE /webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+        "GET /webhooks/{webhook_id}/{webhook_token}",
+        "GET /webhooks/{webhook_id}/{webhook_token}/messages/@original",
+        "GET /webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+        "PATCH /webhooks/{webhook_id}/{webhook_token}",
+        "PATCH /webhooks/{webhook_id}/{webhook_token}/messages/@original",
+        "PATCH /webhooks/{webhook_id}/{webhook_token}/messages/{message_id}",
+        "POST /webhooks/{webhook_id}/{webhook_token}"
       ]
     }
   },
