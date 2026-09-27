@@ -117,6 +117,7 @@
       "POST /channels/{channel_id}/polls/{message_id}/expire",
       "POST /channels/{channel_id}/webhooks",
       "POST /guilds/{guild_id}/emojis",
+      "POST /guilds/{guild_id}/prune",
       "POST /guilds/{guild_id}/soundboard-sounds",
       "POST /guilds/{guild_id}/stickers",
       "PUT /channels/{channel_id}/thread-members/@me",

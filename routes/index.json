@@ -2406,7 +2406,7 @@
     ],
     "major": "guild_id",
     "global": true,
-    "model": "unknown",
+    "model": "global_only",
     "coverage": "gated",
     "notes": [
       "A hidden limit the headers never show: the first prune announces a limit of a thousand, the next one within fifteen minutes is refused with 30040 \"Max number of prune requests has been reached\" and 899 s to wait, in the shared scope (September 2026)."

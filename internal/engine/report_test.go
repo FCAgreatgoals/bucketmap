@@ -105,3 +105,14 @@ func TestModelBucketsCallsBucketsOfOneSingle(t *testing.T) {
 		t.Fatalf("got %+v", got)
 	}
 }
+
+// A 429 says how long to wait, not how the bucket refills: it does not size
+// the window.
+func TestModelBucketsIgnoresRefusals(t *testing.T) {
+	rs := sequence("/q", 1, []float64{0, 0.3}, []float64{0.25, 1}, []int{0, 0})
+	rs[1].Status = 429
+	got := modelBuckets(rs)
+	if len(got) != 1 || got[0].WindowSeconds != 0.25 {
+		t.Fatalf("got %+v", got)
+	}
+}

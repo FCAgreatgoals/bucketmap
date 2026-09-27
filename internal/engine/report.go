@@ -63,7 +63,9 @@ func modelBuckets(results []Result) []BucketModel {
 	samples := map[key][]Result{}
 	routes := map[string]map[string]bool{}
 	for _, r := range results {
-		if r.Bucket == "" || r.Remaining < 0 {
+		// A 429's headers describe the refusal, the time to wait, not the
+		// bucket: a quarter second bucket refused announced a second.
+		if r.Bucket == "" || r.Remaining < 0 || r.Status == 429 {
 			continue
 		}
 		k := key{r.Bucket, r.Major}
