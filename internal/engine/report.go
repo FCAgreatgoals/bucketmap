@@ -59,16 +59,22 @@ const (
 // forward by a constant step on a token bucket. Two requests close together are
 // enough to tell them apart.
 func modelBuckets(results []Result) []BucketModel {
-	type key struct{ bucket, major string }
+	// Requests without the bot's token are classified apart: Discord may
+	// count them on a counter of their own under the same bucket.
+	type key struct {
+		bucket, major string
+		anonymous     bool
+	}
 	samples := map[key][]Result{}
 	routes := map[string]map[string]bool{}
 	for _, r := range results {
 		// A 429's headers describe the refusal, the time to wait, not the
 		// bucket: a quarter second bucket refused announced a second.
-		if r.Bucket == "" || r.Remaining < 0 || r.Status == 429 {
+		// Nor does a deliberate burst: its requests overlap.
+		if r.Bucket == "" || r.Remaining < 0 || r.Status == 429 || r.Deliberate {
 			continue
 		}
-		k := key{r.Bucket, r.Major}
+		k := key{r.Bucket, r.Major, r.Anonymous}
 		samples[k] = append(samples[k], r)
 		if routes[r.Bucket] == nil {
 			routes[r.Bucket] = map[string]bool{}
@@ -184,7 +190,8 @@ func (r *Report) TooMany() []Result {
 	for _, res := range r.Results {
 		// A shared 429 limits the resource, not the bot: Discord does not
 		// count it against anyone, and no pacing avoids it.
-		if res.Status == 429 && res.Scope != "shared" {
+		// Nor is a burst's: reaching the limit is what it is for.
+		if res.Status == 429 && res.Scope != "shared" && !res.Deliberate {
 			out = append(out, res)
 		}
 	}
@@ -231,6 +238,8 @@ func (r *Report) Print(w io.Writer) {
 		}
 		fmt.Fprintf(w, "  %-12s %-28s %s%s\n", b.Model, limit, b.Routes[0], shared)
 	}
+
+	r.printAnonymous(w)
 
 	if tm := r.TooMany(); len(tm) > 0 {
 		fmt.Fprintf(w, "\n429 received, %d: each is a request that should never have been sent\n", len(tm))
@@ -281,6 +290,10 @@ func Compare(w io.Writer, direct, candidate *Report) bool {
 	status := func(r *Report) map[string]int {
 		out := map[string]int{}
 		for _, res := range r.Results {
+			// A burst's answers depend on the moment, not on the candidate.
+			if res.Deliberate {
+				continue
+			}
 			out[res.Step] = res.Status
 		}
 		return out

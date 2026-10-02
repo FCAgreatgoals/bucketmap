@@ -36,6 +36,12 @@ type Result struct {
 	Scope      string    `json:"scope,omitempty"`
 	Global     bool      `json:"global,omitempty"`
 	Error      string    `json:"error,omitempty"`
+	// Anonymous is a request sent without the bot's token, as anything
+	// holding only a webhook's URL sends it.
+	Anonymous bool `json:"anonymous,omitempty"`
+	// Deliberate is a request of a burst meant to reach a limit: its 429 is
+	// the measure, not a failure, and it says nothing of a bucket's model.
+	Deliberate bool `json:"deliberate,omitempty"`
 	// Body is the start of the answer when it is not a success: which error
 	// Discord gave is what a candidate has to reproduce.
 	Body string `json:"body,omitempty"`
@@ -85,6 +91,9 @@ type client struct {
 
 	// bodies keeps each exchange in its result.
 	bodies bool
+
+	// anonymous sends requests without the bot's token.
+	anonymous bool
 
 	// lenient ignores answers that do not decode, for a dry run, where every
 	// route answers the same placeholder.
@@ -136,7 +145,9 @@ func (c *client) do(k call, out any) error {
 	if err != nil {
 		return err
 	}
-	req.Header.Set("Authorization", "Bot "+c.token)
+	if !c.anonymous {
+		req.Header.Set("Authorization", "Bot "+c.token)
+	}
 	req.Header.Set("User-Agent", c.agent)
 	if contentType != "" {
 		req.Header.Set("Content-Type", contentType)
@@ -150,7 +161,7 @@ func (c *client) do(k call, out any) error {
 	start := time.Now()
 	res, err := c.http.Do(req)
 	c.last = time.Now()
-	r := Result{Step: k.step, Group: c.group, Method: k.method, Route: k.route, Major: major, At: start}
+	r := Result{Step: k.step, Group: c.group, Method: k.method, Route: k.route, Major: major, At: start, Anonymous: c.anonymous}
 	if err != nil {
 		r.Error = err.Error()
 		c.results = append(c.results, r)
@@ -269,10 +280,11 @@ func (c *client) pace(k call, major string) {
 			time.Sleep(wait)
 		}
 	}
-	id, ok := c.routeBuckets[k.method+" "+k.route+" "+major]
+	counter := counterOf(major, c.anonymous)
+	id, ok := c.routeBuckets[k.method+" "+k.route+" "+counter]
 	if !ok {
 		if f := familyOf(k.method, k.route); f != "" {
-			id, ok = c.familyBuckets[f+" "+major]
+			id, ok = c.familyBuckets[f+" "+counter]
 		}
 	}
 	if ok {
@@ -298,6 +310,31 @@ func resetMargin(reset time.Duration) time.Duration {
 
 // observe reads the rate limit headers into the result and the bucket state.
 func (c *client) observe(r *Result, h http.Header) {
+	readHeaders(r, h)
+	if r.Bucket == "" {
+		return
+	}
+	counter := counterOf(r.Major, r.Anonymous)
+	id := r.Bucket + ":" + counter
+	c.routeBuckets[r.Method+" "+r.Route+" "+counter] = id
+	if f := familyOf(r.Method, r.Route); f != "" {
+		c.familyBuckets[f+" "+counter] = id
+	}
+	b := c.buckets[id]
+	if b == nil {
+		b = &bucketState{}
+		c.buckets[id] = b
+	}
+	b.remaining = r.Remaining
+	if r.Status == http.StatusTooManyRequests {
+		b.remaining = 0
+	}
+	b.window = time.Duration(r.ResetAfter * float64(time.Second))
+	b.resetAt = r.At.Add(b.window)
+}
+
+// readHeaders reads the rate limit headers into the result, and nothing else.
+func readHeaders(r *Result, h http.Header) {
 	r.Bucket = h.Get("X-RateLimit-Bucket")
 	r.Scope = h.Get("X-RateLimit-Scope")
 	r.Global = h.Get("X-RateLimit-Global") == "true"
@@ -312,26 +349,16 @@ func (c *client) observe(r *Result, h http.Header) {
 			r.ResetAfter = retry
 		}
 	}
+}
 
-	if r.Bucket == "" {
-		return
+// counterOf keys the pacing state of a counter. Requests without the bot's
+// token are kept apart until a run shows Discord counts them together: sharing
+// a state the anonymous counter does not follow could send into it empty.
+func counterOf(major string, anonymous bool) string {
+	if anonymous {
+		return major + " anonymous"
 	}
-	id := r.Bucket + ":" + r.Major
-	c.routeBuckets[r.Method+" "+r.Route+" "+r.Major] = id
-	if f := familyOf(r.Method, r.Route); f != "" {
-		c.familyBuckets[f+" "+r.Major] = id
-	}
-	b := c.buckets[id]
-	if b == nil {
-		b = &bucketState{}
-		c.buckets[id] = b
-	}
-	b.remaining = r.Remaining
-	if r.Status == http.StatusTooManyRequests {
-		b.remaining = 0
-	}
-	b.window = time.Duration(r.ResetAfter * float64(time.Second))
-	b.resetAt = r.At.Add(b.window)
+	return major
 }
 
 // majorOf extracts the major parameter from a path, given its template: the

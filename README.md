@@ -65,6 +65,10 @@ Everything the run creates is deleted at the end.
   are flagged.
 - **Every failure:** a step that did not answer as expected, and every 429,
   which should never happen, since the engine never pushes a bucket to its end.
+- **Requests without the bot's token:** webhook routes are also called by
+  their URL alone, and the report says whether Discord counts them in the same
+  bucket and on the same counter as with the token. With `-ip-global`, it also
+  gives what the IP's global limit let through before refusing.
 
 The numbers are your bot's own: Discord's limits differ from one application
 to another, and change over time.
@@ -185,7 +189,7 @@ limit holds them back. The index marks them `global_only`.
 
 ## What the engine touches
 
-It works only in the guild whose name carries the marker, spreads about 370
+It works only in the guild whose name carries the marker, spreads about 450
 requests over the run (`-duration`, ten minutes by default), waits out any
 bucket that reports nothing left, and never retries a 429. Every request
 carries an audit log reason naming its step, and everything it creates is
@@ -199,6 +203,7 @@ What cannot be undone within a run only happens when you ask for it:
 | `-allow-ban` | Bans then unbans test user 4, one by one and in bulk. |
 | `-allow-prune` | Prunes members inactive for thirty days who hold no role. |
 | `-allow-global-commands` | Creates then deletes a global command, seen for a moment in every guild of the bot. |
+| `-ip-global` | Measures the global limit Discord applies per IP to requests without a token, the one webhooks called by their URL fall under. It creates three channels holding forty-five webhooks, reads them all at once without the bot's token until Discord refuses, once more to confirm unless the first refusal asked for more than two minutes, then sends a burst of messages through them the same way. It may end on a few deliberate 429s. For the wait Discord then asks for, every request without a token from your IP is refused: run it from an IP nothing else uses. |
 
 Kicked and banned users rejoin through the invite printed at the end. Steps
 that need a community guild (announcement and stage channels, welcome screen,

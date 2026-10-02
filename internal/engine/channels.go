@@ -1,5 +1,7 @@
 package engine
 
+import "fmt"
+
 // exerciseChannel edits the text channel: slowmode twice in a row, to observe
 // the channel bucket's model, then a single rename. One rename only: renames
 // and topic changes sit behind a sub-limit Discord does not announce in its
@@ -197,6 +199,65 @@ func (s *scenario) exerciseWebhooks() {
 			return s.do(m.step, m.method, msgRoute, base+"/messages/"+sent.ID, m.body, nil)
 		})
 	}
+
+	// The same routes again without the bot's token, as anything holding only
+	// the webhook's URL calls them. Whether Discord counts them in the same
+	// bucket, and holds them to the IP's global limit rather than the bot's,
+	// is what tells a proxy how to queue them.
+	// Three reads with the bot's token, then one without, in a row: the
+	// fourth one's remaining tells whether both draw on one counter.
+	s.step("read webhook, with then without the bot's token", func() error {
+		if err := s.need(s.webhook.ID, s.webhook.Token); err != nil {
+			return err
+		}
+		const step = "read webhook, with then without the bot's token"
+		for i := 1; i <= 3; i++ {
+			if err := s.c.do(call{step: fmt.Sprintf("%s (%d/4)", step, i), method: "GET", route: token, path: base, immediate: i > 1}, nil); err != nil {
+				return err
+			}
+		}
+		var err error
+		s.anonymously(func() {
+			err = s.c.do(call{step: step + " (4/4)", method: "GET", route: token, path: base, immediate: true}, nil)
+		})
+		return err
+	})
+	s.anonymously(func() {
+		s.step("read webhook with its token, anonymously", func() error {
+			if err := s.need(s.webhook.ID, s.webhook.Token); err != nil {
+				return err
+			}
+			return s.do("read webhook with its token, anonymously", "GET", token, base, nil, nil)
+		})
+		s.step("edit webhook with its token, anonymously", func() error {
+			if err := s.need(s.webhook.ID, s.webhook.Token); err != nil {
+				return err
+			}
+			return s.do("edit webhook with its token, anonymously", "PATCH", token, base, map[string]any{"name": s.cfg.Marker}, nil)
+		})
+		var sent object
+		s.step("execute webhook, anonymously", func() error {
+			if err := s.need(s.webhook.ID, s.webhook.Token); err != nil {
+				return err
+			}
+			return s.do("execute webhook, anonymously", "POST", token, base+"?wait=true", map[string]any{"content": "bucketmap webhook message, sent anonymously"}, &sent)
+		})
+		for _, m := range []struct {
+			step, method string
+			body         any
+		}{
+			{"read webhook message, anonymously", "GET", nil},
+			{"edit webhook message, anonymously", "PATCH", map[string]any{"content": "bucketmap webhook message, edited anonymously"}},
+			{"delete webhook message, anonymously", "DELETE", nil},
+		} {
+			s.step(m.step, func() error {
+				if err := s.need(sent.ID); err != nil {
+					return err
+				}
+				return s.do(m.step, m.method, msgRoute, base+"/messages/"+sent.ID, m.body, nil)
+			})
+		}
+	})
 
 	// A second webhook, deleted with its own token rather than the bot's.
 	s.step("create a second webhook", func() error {

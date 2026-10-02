@@ -76,6 +76,7 @@ func runCmd(args []string) int {
 	allowBan := fs.Bool("allow-ban", false, "ban then unban test user 4, who then has to rejoin")
 	allowPrune := fs.Bool("allow-prune", false, "prune members inactive for thirty days who hold no role")
 	allowGlobal := fs.Bool("allow-global-commands", false, "create and delete a global command, seen for a moment by every guild of the bot")
+	ipGlobal := fs.Bool("ip-global", false, "send bursts without the bot's token until Discord refuses one, to measure the global limit per IP: for the wait that follows, every request without a token from this IP is refused, so run it from an IP nothing else uses")
 	out := fs.String("report", filepath.Join("reports", "bucketmap-"+time.Now().Format("2006-01-02-150405")+".json"), "where to write the report (reports/ is ignored by git: a report holds your measured limits)")
 	only := fs.String("only", "", "comma separated groups to run, and those they need ("+strings.Join(engine.Groups(), ", ")+")")
 	stage := fs.String("stage", "", "id of a stage channel where test user 1 is connected during the run")
@@ -107,6 +108,7 @@ func runCmd(args []string) int {
 		API: *api, Token: *token, Guild: *guild, Users: splitIDs(*users), Marker: *marker,
 		Duration: *duration, Agent: "DiscordBot (https://github.com/FCAgreatgoals/bucketmap, " + version + ")",
 		AllowKick: *allowKick, AllowBan: *allowBan, AllowPrune: *allowPrune, AllowGlobalCommands: *allowGlobal,
+		IPGlobal: *ipGlobal,
 	})
 	if r != nil {
 		if raw, err := json.MarshalIndent(r, "", "  "); err == nil {

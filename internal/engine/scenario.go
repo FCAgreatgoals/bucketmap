@@ -41,9 +41,12 @@ type scenario struct {
 	messages []string
 	webhook  object
 	webhook2 object
-	stickers []string
-	events   []string
-	appEmoji string
+	// burstHooks are the webhooks of the global limit per IP's burst, until
+	// they are deleted.
+	burstHooks []object
+	stickers   []string
+	events     []string
+	appEmoji   string
 	// appEmoji2 is the twin of appEmoji, created and deleted right after it.
 	appEmoji2 string
 	template  string
@@ -213,6 +216,13 @@ func (s *scenario) dropTwin(step, route, path string) {
 	}
 }
 
+// anonymously runs steps without the bot's token.
+func (s *scenario) anonymously(fn func()) {
+	s.c.anonymous = true
+	defer func() { s.c.anonymous = false }()
+	fn()
+}
+
 // pair sends the same request twice in a row, the second without spacing.
 // Two consecutive requests on one bucket are what tells a token bucket from a
 // fixed window, and two requests stay far below any limit.
@@ -260,6 +270,7 @@ var groups = []group{
 	{"users", nil, (*scenario).exerciseUsers},
 	{"public", nil, (*scenario).exercisePublic},
 	{"moderation", nil, (*scenario).moderate},
+	{"ip-global", nil, (*scenario).measureIPGlobal},
 }
 
 // Groups lists the names a run can be restricted to.
@@ -491,6 +502,12 @@ func nilIfEmpty(id string) any {
 
 // cleanup removes everything the scenario created, even after failures.
 func (s *scenario) cleanup() {
+	for i, w := range s.burstHooks {
+		name := fmt.Sprintf("delete leftover burst webhook %d", i+1)
+		s.step(name, func() error {
+			return s.do(name, "DELETE", "/webhooks/{webhook_id}", "/webhooks/"+w.ID, nil, nil)
+		})
+	}
 	for i, w := range []object{s.webhook, s.webhook2} {
 		if w.ID == "" {
 			continue

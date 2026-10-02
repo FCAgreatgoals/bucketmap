@@ -50,6 +50,11 @@ type Config struct {
 	// AllowPrune prunes members of the guild inactive for thirty days who
 	// hold no role.
 	AllowPrune bool
+	// IPGlobal sends bursts without the bot's token until Discord refuses one,
+	// to measure the global limit applied to the IP. For the time Discord
+	// then asks to wait, every request without a token from that IP is
+	// refused: run it from an IP nothing else uses.
+	IPGlobal bool
 	// AllowGlobalCommands creates, edits and deletes a global command, which
 	// every guild of the bot sees for a moment.
 	AllowGlobalCommands bool
@@ -74,7 +79,13 @@ func Run(cfg Config) (*Report, error) {
 	if err := cfg.validate(); err != nil {
 		return nil, err
 	}
-	planned := len(dryRun(true, cfg.Only).Results)
+	planned := 0
+	for _, r := range dryRun(true, cfg.Only).Results {
+		// A burst goes out all at once: it takes nothing from the spacing.
+		if !r.Deliberate {
+			planned++
+		}
+	}
 	spacing := cfg.Duration / time.Duration(max(planned, 1))
 	spacing = max(spacing, 250*time.Millisecond)
 	c := newClient(cfg.API, strings.TrimPrefix(cfg.Token, "Bot "), cfg.Agent, spacing)
@@ -114,7 +125,7 @@ func dryRun(full bool, only []string) *Report {
 		Users:     []string{"1001", "1002", "1003", "1004"},
 		Agent:     "bucketmap dry run",
 		AllowKick: full, AllowBan: full, AllowPrune: full, AllowGlobalCommands: full,
-		Only: only,
+		IPGlobal: full, Only: only,
 	}
 	if full {
 		cfg.Stage = "1"

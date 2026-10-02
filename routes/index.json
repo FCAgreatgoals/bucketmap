@@ -1600,7 +1600,10 @@
     "major": "channel_id",
     "global": true,
     "model": "global_only",
-    "coverage": "exercised"
+    "coverage": "exercised",
+    "notes": [
+      "A hidden limit the headers never show: they announce no limit of the route's own, yet after about fifty creations in a row the next ones are refused in the shared scope, then let through about one at a time (October 2026)."
+    ]
   },
   {
     "method": "GET",
@@ -4386,7 +4389,8 @@
     "family": "webhook_messages",
     "coverage": "exercised",
     "notes": [
-      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token."
+      "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
+      "Called without an Authorization header, it answers with the same bucket and draws on the same counter as with the bot's token. Bursts of these reads several times past fifty a second from one IP were not refused (October 2026)."
     ]
   },
   {
@@ -4424,7 +4428,8 @@
     "notes": [
       "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
       "With an interaction token, this sends a followup: exempt from the global limit, like every interaction endpoint.",
-      "Callable without an Authorization header, in which case Discord applies the global limit to the IP address."
+      "Callable without an Authorization header, in which case Discord applies the global limit to the IP address.",
+      "Called without an Authorization header, it answers with the same bucket as with the bot's token (October 2026)."
     ]
   },
   {
