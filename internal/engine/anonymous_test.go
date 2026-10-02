@@ -191,3 +191,15 @@ func TestChannelLimitSummary(t *testing.T) {
 		t.Error("the channel's measure is summarised as a burst too")
 	}
 }
+
+// A shared refusal's wait is in its body: Retry-After says 1 whatever it is.
+func TestSharedRefusalWaitComesFromTheBody(t *testing.T) {
+	h := http.Header{}
+	h.Set("Retry-After", "1")
+	h.Set("X-RateLimit-Scope", "shared")
+	r := Result{Status: http.StatusTooManyRequests}
+	readHeaders(&r, h, []byte(`{"message":"The resource is being rate limited.","retry_after":59.665,"global":false}`))
+	if r.ResetAfter != 59.665 {
+		t.Errorf("wait %.3f s, want the body's 59.665", r.ResetAfter)
+	}
+}

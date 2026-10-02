@@ -180,7 +180,7 @@ func (c *client) do(k call, out any) error {
 		r.Response = recordResponse(res.Header.Get("Content-Type"), payload)
 	}
 	r.LatencyMs = float64(time.Since(start).Microseconds()) / 1000
-	c.observe(&r, res.Header)
+	c.observe(&r, res.Header, payload)
 	c.results = append(c.results, r)
 
 	if res.StatusCode < 200 || res.StatusCode > 299 {
@@ -309,8 +309,8 @@ func resetMargin(reset time.Duration) time.Duration {
 }
 
 // observe reads the rate limit headers into the result and the bucket state.
-func (c *client) observe(r *Result, h http.Header) {
-	readHeaders(r, h)
+func (c *client) observe(r *Result, h http.Header, body []byte) {
+	readHeaders(r, h, body)
 	if r.Bucket == "" {
 		return
 	}
@@ -334,7 +334,10 @@ func (c *client) observe(r *Result, h http.Header) {
 }
 
 // readHeaders reads the rate limit headers into the result, and nothing else.
-func readHeaders(r *Result, h http.Header) {
+// A 429's wait is the longest of Retry-After and the body's retry_after: on a
+// refusal in the shared scope, Retry-After says 1 whatever the wait, and only
+// the body has it, 59.665 s for a webhook creation, 899 s for a prune.
+func readHeaders(r *Result, h http.Header, body []byte) {
 	r.Bucket = h.Get("X-RateLimit-Bucket")
 	r.Scope = h.Get("X-RateLimit-Scope")
 	r.Global = h.Get("X-RateLimit-Global") == "true"
@@ -347,6 +350,12 @@ func readHeaders(r *Result, h http.Header) {
 	if r.Status == http.StatusTooManyRequests {
 		if retry, err := strconv.ParseFloat(h.Get("Retry-After"), 64); err == nil && retry > r.ResetAfter {
 			r.ResetAfter = retry
+		}
+		var refusal struct {
+			RetryAfter float64 `json:"retry_after"`
+		}
+		if json.Unmarshal(body, &refusal) == nil && refusal.RetryAfter > r.ResetAfter {
+			r.ResetAfter = refusal.RetryAfter
 		}
 	}
 }

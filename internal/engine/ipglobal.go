@@ -231,6 +231,6 @@ func (c *client) send(step, method, route, path string, body any) Result {
 	if res.StatusCode >= 400 {
 		r.Body = truncate(string(answer), 300)
 	}
-	readHeaders(&r, res.Header)
+	readHeaders(&r, res.Header, answer)
 	return r
 }
