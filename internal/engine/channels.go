@@ -222,6 +222,26 @@ func (s *scenario) exerciseWebhooks() {
 		})
 		return err
 	})
+	// Three messages sent, then the last one read at once: the read's
+	// remaining tells whether sending and reading draw on one counter, as
+	// their shared bucket says they should.
+	s.step("send then read webhook messages", func() error {
+		if err := s.need(s.webhook.ID, s.webhook.Token); err != nil {
+			return err
+		}
+		const step = "send then read webhook messages"
+		var last object
+		for i := 1; i <= 3; i++ {
+			body := map[string]any{"content": fmt.Sprintf("bucketmap webhook message %d of 3", i)}
+			if err := s.c.do(call{step: fmt.Sprintf("%s (%d/4)", step, i), method: "POST", route: token, path: base + "?wait=true", body: body, immediate: i > 1}, &last); err != nil {
+				return err
+			}
+		}
+		if err := s.need(last.ID); err != nil {
+			return err
+		}
+		return s.c.do(call{step: step + " (4/4)", method: "GET", route: msgRoute, path: base + "/messages/" + last.ID, immediate: true}, nil)
+	})
 	s.anonymously(func() {
 		s.step("read webhook with its token, anonymously", func() error {
 			if err := s.need(s.webhook.ID, s.webhook.Token); err != nil {

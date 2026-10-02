@@ -69,6 +69,10 @@ Everything the run creates is deleted at the end.
   their URL alone, and the report says whether Discord counts them in the same
   bucket and on the same counter as with the token. With `-ip-global`, it also
   gives what the IP's global limit let through before refusing.
+- **Shared counters, checked directly:** where a bucket says two routes count
+  together, such as sending through a webhook and reading what it sent, a
+  request on one follows requests on the other at once, and its remaining
+  tells whether they really draw on one counter.
 
 The numbers are your bot's own: Discord's limits differ from one application
 to another, and change over time.

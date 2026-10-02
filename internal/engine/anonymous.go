@@ -4,35 +4,48 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
 )
 
-// CounterCheck is what a request without the bot's token, sent right after
-// requests with it on the same route, said about their counter.
+// CounterCheck is what the last request of a sequence, sent right after the
+// others on the same webhook but another way, said about their counter:
+// without the bot's token after requests with it, or a read after sends.
 type CounterCheck struct {
+	// What follows what, as "GET /route then GET /route without the token".
 	Route string
 	// Verdict is "one counter", "separate counters", "another bucket", or
 	// "inconclusive".
 	Verdict string
-	// Before is the remaining of the last request with the token, After the
-	// one without.
+	// Before is the remaining of the request before the last, After the
+	// last one's.
 	Before, After int
 }
 
-// CounterChecks reads every request without the bot's token that directly
-// follows one with it on the same route and major parameter. On one counter,
-// the remaining keeps going down; on another, it starts again near the top.
+// sequenceStep splits a step named "name (n/total)".
+var sequenceStep = regexp.MustCompile(`^(.*) \((\d+)/(\d+)\)$`)
+
+// CounterChecks reads every sequence whose last request differs from the
+// one before it, by its token or its route, on the same major parameter. On
+// one counter, the remaining keeps going down; on another, it starts again
+// near the top.
 func (r *Report) CounterChecks() []CounterCheck {
 	var out []CounterCheck
 	for i := 1; i < len(r.Results); i++ {
 		prev, res := r.Results[i-1], r.Results[i]
-		if !res.Anonymous || prev.Anonymous || res.Deliberate || prev.Deliberate ||
-			res.Route != prev.Route || res.Major != prev.Major || res.Remaining < 0 || prev.Remaining < 0 {
+		m, pm := sequenceStep.FindStringSubmatch(res.Step), sequenceStep.FindStringSubmatch(prev.Step)
+		if m == nil || pm == nil || m[1] != pm[1] || m[2] != m[3] || res.Deliberate || prev.Deliberate ||
+			res.Major != prev.Major || res.Remaining < 0 || prev.Remaining < 0 ||
+			(res.Anonymous == prev.Anonymous && res.Route == prev.Route) {
 			continue
 		}
-		c := CounterCheck{Route: res.Method + " " + res.Route, Before: prev.Remaining, After: res.Remaining}
+		name := prev.Method + " " + prev.Route + " then " + res.Method + " " + res.Route
+		if res.Anonymous && !prev.Anonymous {
+			name += " without the token"
+		}
+		c := CounterCheck{Route: name, Before: prev.Remaining, After: res.Remaining}
 		switch {
 		case res.Bucket != prev.Bucket:
 			c.Verdict = "another bucket"
@@ -168,7 +181,7 @@ func (r *Report) printAnonymous(w io.Writer) {
 	if len(checks)+len(buckets)+len(bursts) == 0 {
 		return
 	}
-	fmt.Fprintf(w, "\nWithout the bot's token\n")
+	fmt.Fprintf(w, "\nWithout the bot's token, and shared counters\n")
 	for _, b := range buckets {
 		verdict := "same bucket as with it"
 		if !b.Same {
@@ -177,7 +190,7 @@ func (r *Report) printAnonymous(w io.Writer) {
 		fmt.Fprintf(w, "  %-60s %s\n", b.Route, verdict)
 	}
 	for _, c := range checks {
-		fmt.Fprintf(w, "  %-60s %s (remaining %d with the token, then %d without)\n", c.Route, c.Verdict, c.Before, c.After)
+		fmt.Fprintf(w, "  %s: %s (remaining %d, then %d)\n", c.Route, c.Verdict, c.Before, c.After)
 	}
 	for _, b := range bursts {
 		if b.Refused {

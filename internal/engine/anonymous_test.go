@@ -79,8 +79,8 @@ func TestCounterChecks(t *testing.T) {
 	route := "/webhooks/{webhook_id}/{webhook_token}"
 	pair := func(before, after int, bucket string) []Result {
 		return []Result{
-			{Method: "GET", Route: route, Major: "1/ab", Bucket: "b", Limit: 5, Remaining: before},
-			{Method: "GET", Route: route, Major: "1/ab", Bucket: bucket, Limit: 5, Remaining: after, Anonymous: true},
+			{Step: "check (3/4)", Method: "GET", Route: route, Major: "1/ab", Bucket: "b", Limit: 5, Remaining: before},
+			{Step: "check (4/4)", Method: "GET", Route: route, Major: "1/ab", Bucket: bucket, Limit: 5, Remaining: after, Anonymous: true},
 		}
 	}
 	for _, c := range []struct {
@@ -98,6 +98,30 @@ func TestCounterChecks(t *testing.T) {
 			t.Errorf("remaining %d then %d on %q: got %+v, want %q", c.before, c.after, c.bucket, got, c.want)
 		}
 	}
+}
+
+// A pair of the same request, as every read is sent, checks no counter.
+func TestPairsAreNoCounterCheck(t *testing.T) {
+	route := "/webhooks/{webhook_id}/{webhook_token}"
+	r := &Report{Results: []Result{
+		{Step: "read (1/2)", Method: "GET", Route: route, Major: "1", Bucket: "b", Remaining: 4},
+		{Step: "read (2/2)", Method: "GET", Route: route, Major: "1", Bucket: "b", Remaining: 3},
+	}}
+	if got := r.CounterChecks(); len(got) != 0 {
+		t.Errorf("a pair read as a counter check: %+v", got)
+	}
+}
+
+// The dry run sends a read right after sends on the same webhook.
+func TestSendThenReadIsChecked(t *testing.T) {
+	r := DryRun(true)
+	for i := 1; i < len(r.Results); i++ {
+		prev, res := r.Results[i-1], r.Results[i]
+		if res.Step == "send then read webhook messages (4/4)" && prev.Method == "POST" && res.Method == "GET" && prev.Major == res.Major {
+			return
+		}
+	}
+	t.Error("no read follows the sends on the same webhook")
 }
 
 // Only webhook token routes are called without the bot's token.
