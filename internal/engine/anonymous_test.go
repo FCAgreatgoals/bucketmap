@@ -168,3 +168,26 @@ func TestBurstsCountOtherRefusalsApart(t *testing.T) {
 		t.Errorf("summary %+v: want no global refusal, one shared and one user", b)
 	}
 }
+
+// The channel's summary counts what its burst took before the first shared
+// refusal, and the gaps between accepted steady sends.
+func TestChannelLimitSummary(t *testing.T) {
+	at := time.Now()
+	ms := func(n int) time.Time { return at.Add(time.Duration(n) * time.Millisecond) }
+	r := &Report{Results: []Result{
+		{Step: channelBurst, Status: 204, Deliberate: true, At: ms(0)},
+		{Step: channelBurst, Status: 204, Deliberate: true, At: ms(1)},
+		{Step: channelBurst, Status: 429, Scope: "shared", ResetAfter: 1.5, Deliberate: true, At: ms(2)},
+		{Step: channelBurst, Status: 204, Deliberate: true, At: ms(3)},
+		{Step: channelProbe, Status: 429, Scope: "shared", Deliberate: true, At: ms(100)},
+		{Step: channelProbe, Status: 204, Deliberate: true, At: ms(1100)},
+		{Step: channelProbe, Status: 204, Deliberate: true, At: ms(2100)},
+	}}
+	c := r.ChannelLimit()
+	if c == nil || c.AcceptedBefore != 2 || c.Accepted != 3 || c.RetryAfter != 1.5 || c.ProbeAccepted != 2 || len(c.Gaps) != 1 || c.Gaps[0] != 1 {
+		t.Errorf("summary %+v", c)
+	}
+	if len(r.Bursts()) != 0 {
+		t.Error("the channel's measure is summarised as a burst too")
+	}
+}

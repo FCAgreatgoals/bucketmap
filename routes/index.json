@@ -1602,7 +1602,7 @@
     "model": "global_only",
     "coverage": "exercised",
     "notes": [
-      "A hidden limit the headers never show: they announce no limit of the route's own, yet after about fifty creations in a row the next ones are refused in the shared scope, then let through about one at a time (October 2026)."
+      "A hidden limit the headers never show: they announce no limit of the route's own, yet a few dozen creations in a row get the next ones refused in the shared scope, each with about a minute to wait (October 2026)."
     ]
   },
   {
@@ -4429,7 +4429,8 @@
       "Sending with a webhook token and reading, editing or deleting its original message share one bucket, per webhook token.",
       "With an interaction token, this sends a followup: exempt from the global limit, like every interaction endpoint.",
       "Callable without an Authorization header, in which case Discord applies the global limit to the IP address.",
-      "Called without an Authorization header, it answers with the same bucket as with the bot's token (October 2026)."
+      "Called without an Authorization header, it answers with the same bucket as with the bot's token (October 2026).",
+      "Discord also limits messages sent through webhooks per channel, every webhook of the channel together: past a burst of a few dozen, sends are refused in the shared scope while each webhook's own bucket still has room. The headers never show it (October 2026)."
     ]
   },
   {

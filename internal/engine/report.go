@@ -240,6 +240,7 @@ func (r *Report) Print(w io.Writer) {
 	}
 
 	r.printAnonymous(w)
+	r.printChannelLimit(w)
 
 	if tm := r.TooMany(); len(tm) > 0 {
 		fmt.Fprintf(w, "\n429 received, %d: each is a request that should never have been sent\n", len(tm))

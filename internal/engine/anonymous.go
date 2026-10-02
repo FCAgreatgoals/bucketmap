@@ -129,7 +129,8 @@ func (r *Report) Bursts() []Burst {
 	bySteps := map[string][]Result{}
 	var order []string
 	for _, res := range r.Results {
-		if !res.Deliberate {
+		// The channel's measure has a summary of its own.
+		if !res.Deliberate || res.Step == channelBurst || res.Step == channelProbe {
 			continue
 		}
 		if bySteps[res.Step] == nil {

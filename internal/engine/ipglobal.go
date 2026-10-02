@@ -69,6 +69,7 @@ func (s *scenario) measureIPGlobal() {
 			return err
 		})
 	}
+	byChannel := map[string][]object{}
 	for i := 1; i <= burstWebhooks; i++ {
 		var ch string
 		if n := (i - 1) / webhooksPerChan; n < len(channels) {
@@ -83,6 +84,7 @@ func (s *scenario) measureIPGlobal() {
 			err := s.do(name, "POST", "/channels/{channel_id}/webhooks", "/channels/"+ch+"/webhooks", map[string]any{"name": fmt.Sprintf("%s-burst-%d", s.cfg.Marker, i)}, &w)
 			if w.ID != "" && w.Token != "" {
 				s.burstHooks = append(s.burstHooks, w)
+				byChannel[ch] = append(byChannel[ch], w)
 			}
 			return err
 		})
@@ -115,6 +117,16 @@ func (s *scenario) measureIPGlobal() {
 			time.Sleep(max(wait+resetMargin(wait), 2500*time.Millisecond))
 		}
 		return nil
+	})
+
+	s.step("measure webhook sends per channel", func() error {
+		var fullest []object
+		for _, ch := range channels {
+			if len(byChannel[ch]) > len(fullest) {
+				fullest = byChannel[ch]
+			}
+		}
+		return s.measureChannelLimit(fullest)
 	})
 
 	for i, w := range append([]object{}, s.burstHooks...) {

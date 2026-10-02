@@ -398,7 +398,8 @@
     "POST /webhooks/{webhook_id}/{webhook_token}": [
       "With an interaction token, this sends a followup: exempt from the global limit, like every interaction endpoint.",
       "Callable without an Authorization header, in which case Discord applies the global limit to the IP address.",
-      "Called without an Authorization header, it answers with the same bucket as with the bot's token (October 2026)."
+      "Called without an Authorization header, it answers with the same bucket as with the bot's token (October 2026).",
+      "Discord also limits messages sent through webhooks per channel, every webhook of the channel together: past a burst of a few dozen, sends are refused in the shared scope while each webhook's own bucket still has room. The headers never show it (October 2026)."
     ],
     "GET /users/{user_id}": [
       "No major parameter: whether every user shares one counter is what the scenario's back to back reads of two users show."
@@ -461,7 +462,7 @@
       "A hidden limit the headers never show: the first prune announces a limit of a thousand, the next one within fifteen minutes is refused with 30040 \"Max number of prune requests has been reached\" and 899 s to wait, in the shared scope (September 2026)."
     ],
     "POST /channels/{channel_id}/webhooks": [
-      "A hidden limit the headers never show: they announce no limit of the route's own, yet after about fifty creations in a row the next ones are refused in the shared scope, then let through about one at a time (October 2026)."
+      "A hidden limit the headers never show: they announce no limit of the route's own, yet a few dozen creations in a row get the next ones refused in the shared scope, each with about a minute to wait (October 2026)."
     ],
     "GET /webhooks/{webhook_id}/{webhook_token}": [
       "Called without an Authorization header, it answers with the same bucket and draws on the same counter as with the bot's token. Bursts of these reads several times past fifty a second from one IP were not refused (October 2026)."
